@@ -9,7 +9,7 @@ public interface EscalaDAO {
     //CRUD de Escala - Crear, Leer, Actualizar y Eliminar.
 
     //Create
-    public boolean guardarEscala(Escala escala);
+    public void guardarEscala(Escala escala);
 
     //Read
     public List<Escala> consultarEscalaPorIdRuta(String idRuta);
@@ -20,5 +20,5 @@ public interface EscalaDAO {
     public boolean actualizarEscala(Escala escala);
 
     //Delete
-    public boolean eliminar(String idRuta);
+    public boolean eliminarEscala(String idRuta);
 }

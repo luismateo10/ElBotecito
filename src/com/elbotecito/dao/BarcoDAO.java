@@ -17,7 +17,7 @@ public interface BarcoDAO {
      * @return
      * @throws LlaveDuplicadaException
      */
-    public boolean guardarBarco(Barco barco) throws LlaveDuplicadaException;
+    void guardarBarco(Barco barco) throws LlaveDuplicadaException;
 
     //Read
 
@@ -26,15 +26,15 @@ public interface BarcoDAO {
      * @param matriculaBarco
      * @return
      */
-    public Barco consultarBarcoPorMatricula(String matriculaBarco);
+    Barco consultarBarcoPorMatricula(String matriculaBarco);
 
-    public List<Barco> consultarBarcos();
+    List<Barco> consultarBarcos();
 
     //Update
-    public boolean actualizarBarco(Barco barco);
+    boolean actualizarBarco(Barco barco);
 
     //Delete
-    public boolean eliminarBarco(String matriculaBarco);
+    boolean eliminarBarco(String matriculaBarco);
 
 
 }

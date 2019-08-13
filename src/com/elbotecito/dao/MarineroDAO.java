@@ -10,7 +10,7 @@ public interface MarineroDAO {
     //CRUD de Marinero - Crear, Leer, Actualizar y Eliminar.
 
     //Create
-    public boolean guardarMarinero(Marinero marinero) throws LlaveDuplicadaException;
+    public void guardarMarinero(Marinero marinero) throws LlaveDuplicadaException;
 
     //Read
     public Marinero consultarMarineroPorIdentificacion(String idMarinero);

@@ -5,16 +5,14 @@ import com.elbotecito.modelo.Barco;
 import com.elbotecito.dao.exception.LlaveDuplicadaException;
 import com.elbotecito.util.util;
 
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.SeekableByteChannel;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.nio.file.*;
 
 import static java.nio.file.StandardOpenOption.APPEND;
 import static java.nio.file.StandardOpenOption.READ;
@@ -25,27 +23,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static java.nio.file.StandardOpenOption.APPEND;
 
 public class BarcoDAONIO implements BarcoDAO {
 
     private final static String NOMBRE_ARCHIVO = "Barcos"; //Kebab case
-    private final static int LONGITUD_REGISTRO = 170;
+    private final static int LONGITUD_REGISTRO = 150;
     private final static int LONGITUD_MATRICULA = 20;
     private final static int LONGITUD_CAPACIDADMAXIMA = 10;
     private final static int LONGITUD_NUMEROREGMEC = 20;
     private final static int LONGITUD_FECHAREGMERC = 20;
     private final static int LONGITUD_NOMBRE = 40;
     private final static int LONGITUD_ESTADO = 20;
-
-    private final static int LONGITUD_EMPRESAID = 20;
     private final static int LONGITUD_TIPOID = 20;
 
     //private final static String ENCODING_WINDOWS = "ASCII";
 
     // Se utiliza la propiedad del sistema que indica la codificacion de los archivos
     private final static String ENCODING_FILE = System.getProperty("file.encoding");
-    private static final String REGISTRO_ELIMINADO_TEXT = "|||||||||||||||";
+    private static final String REGISTRO_ELIMINADO_TEXT = "99999999999999999999";
     private final static Path archivo = Paths.get(NOMBRE_ARCHIVO);
 
     public BarcoDAONIO() {
@@ -59,59 +54,20 @@ public class BarcoDAONIO implements BarcoDAO {
     }
 
     @Override
-    public boolean actualizarBarco(Barco barco) {
-        Set<StandardOpenOption> options = new HashSet<StandardOpenOption>();
-        options.add(READ);
-        options.add(WRITE);
-        long lastPosition = 0;
-        try (SeekableByteChannel sbc = Files.newByteChannel(archivo, options)) {
-            ByteBuffer buf = ByteBuffer.allocate(LONGITUD_REGISTRO);
-            String encoding = System.getProperty("file.encoding");
-            while (sbc.read(buf) > 0) {
-                buf.rewind();
-                CharBuffer registro = Charset.forName(encoding).decode(buf);
-
-                String matricula = registro.subSequence(0, LONGITUD_REGISTRO).toString().trim();
-                if (matricula.equals(barco.getMatricula())) {
-                    sbc.position(lastPosition);
-                    sbc.write(ByteBuffer.wrap(parseBarco2String(barco).getBytes()));
-                    return true;
-                }
-                buf.flip();
-                lastPosition = sbc.position();
-            }
-        } catch (IOException ioe) {
-            System.out.println("caught exception: " + ioe);
+    public void guardarBarco(Barco barco) throws LlaveDuplicadaException {
+        if (consultarBarcoPorMatricula(barco.getMatricula()) != null) {
+            throw new LlaveDuplicadaException();
         }
-        return false;
-
-    }
-
-    @Override
-    public boolean eliminarBarco(String matriculaBarco) {
-        Set<StandardOpenOption> options = new HashSet<StandardOpenOption>();
-        options.add(READ);
-        options.add(WRITE);
-        long lastPosition = 0;
-        try (SeekableByteChannel sbc = Files.newByteChannel(archivo, options)) {
-            ByteBuffer buf = ByteBuffer.allocate(LONGITUD_REGISTRO);
-            while (sbc.read(buf) > 0) {
-                buf.rewind();
-                CharBuffer registro = Charset.forName(ENCODING_FILE).decode(buf);
-                String matricula = registro.subSequence(0, LONGITUD_REGISTRO).toString().trim();
-                if (matricula.equals(matriculaBarco)) {
-                    sbc.position(lastPosition);
-                    new String();
-                    sbc.write(ByteBuffer.wrap(REGISTRO_ELIMINADO_TEXT.getBytes()));
-                    return true;
-                }
-                buf.flip();
-                lastPosition = sbc.position();
-            }
+        String registro = parseBarco2String(barco);
+        byte[] datosRegistro = registro.getBytes();
+        ByteBuffer byteBuffer = ByteBuffer.wrap(datosRegistro);
+        try (FileChannel fc = (FileChannel.open(archivo, APPEND))) {
+            fc.write(byteBuffer);
         } catch (IOException ioe) {
-            System.out.println("caught exception: " + ioe);
+            ioe.printStackTrace();
         }
-        return false;
+
+
     }
 
     @Override
@@ -152,22 +108,96 @@ public class BarcoDAONIO implements BarcoDAO {
     }
 
     @Override
-    public boolean guardarBarco(Barco barco) throws LlaveDuplicadaException {
-        if (consultarBarcoPorMatricula(barco.getMatricula()) != null) {
-            throw new LlaveDuplicadaException();
-        }
-        String registro = parseBarco2String(barco);
-        byte[] datosRegistro = registro.getBytes();
-        ByteBuffer byteBuffer = ByteBuffer.wrap(datosRegistro);
-        try (FileChannel fc = (FileChannel.open(archivo, APPEND))) {
-            fc.write(byteBuffer);
-            return true;
+    public boolean actualizarBarco(Barco barco) {
+        Set<StandardOpenOption> options = new HashSet<StandardOpenOption>();
+        options.add(READ);
+        options.add(WRITE);
+        long lastPosition = 0;
+        try (SeekableByteChannel sbc = Files.newByteChannel(archivo, options)) {
+            ByteBuffer buf = ByteBuffer.allocate(LONGITUD_REGISTRO);
+            while (sbc.read(buf) > 0) {
+                buf.rewind();
+                CharBuffer registro = Charset.forName(ENCODING_FILE).decode(buf);
+                String matricula = registro.subSequence(0, LONGITUD_MATRICULA).toString().trim();
+                if (matricula.equals(barco.getMatricula())) {
+                    sbc.position(lastPosition);
+                    sbc.write(ByteBuffer.wrap(parseBarco2String(barco).getBytes()));
+                    return true;
+                }
+                buf.flip();
+                lastPosition = sbc.position();
+            }
         } catch (IOException ioe) {
-            ioe.printStackTrace();
-            return false;
+            System.out.println("caught exception: " + ioe);
         }
+        return false;
 
     }
+
+    // Eliminar opcion 2
+    @Override
+    public boolean eliminarBarco(String matriculaBarco) {
+        boolean res = false;
+        List<Barco> barcos = new ArrayList<>();
+        try (SeekableByteChannel sbc = Files.newByteChannel(archivo)) {
+            ByteBuffer buffer = ByteBuffer.allocate(LONGITUD_REGISTRO);
+            while (sbc.read(buffer) > 0) {
+                buffer.rewind();
+                CharBuffer registro = Charset.forName(ENCODING_FILE).decode(buffer);
+                Barco barcoConvertido = parseBarcoRegistro2Objeto(registro);
+                buffer.flip();
+                barcos.add(barcoConvertido);
+            }
+        } catch (IOException x) {
+            System.out.println("caught exception: " + x);
+        }
+        util.eliminarYCrearArchivo(archivo);
+        while (!barcos.isEmpty()) {
+            Barco barcoAux = barcos.get(0);
+            barcos.remove(0);
+            if (barcoAux.getMatricula().equals(matriculaBarco)) {
+                res = true;
+            } else {
+                String registro = parseBarco2String(barcoAux);
+                byte[] datosRegistro = registro.getBytes();
+                ByteBuffer byteBuffer = ByteBuffer.wrap(datosRegistro);
+                try (FileChannel fc = (FileChannel.open(archivo, APPEND))) {
+                    fc.write(byteBuffer);
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            }
+        }
+        return res;
+    }
+
+
+ /*//Eliminar opcion 1
+ //En la que se remplaza el Id por uno generico para todos los registros eliminados.
+ Set<StandardOpenOption> options = new HashSet<StandardOpenOption>();
+        options.add(READ);
+        options.add(WRITE);
+        long lastPosition = 0;
+        try (SeekableByteChannel sbc = Files.newByteChannel(archivo, options)) {
+            ByteBuffer buf = ByteBuffer.allocate(LONGITUD_REGISTRO);
+            while (sbc.read(buf) > 0) {
+                buf.rewind();
+                CharBuffer registro = Charset.forName(ENCODING_FILE).decode(buf);
+                String matricula = registro.subSequence(0, LONGITUD_MATRICULA).toString().trim();
+                if (matricula.equals(matriculaBarco)) {
+                    sbc.position(lastPosition);
+                    sbc.write(ByteBuffer.wrap("REGISTRO_ELIMINADO_TEXT".getBytes()));
+
+                    return true;
+                }
+                buf.flip();
+                lastPosition = sbc.position();
+            }
+        } catch (IOException ioe) {
+            System.out.println("caught exception: " + ioe);
+        }
+        return false;
+  */
 
     private String parseBarco2String(Barco barco) {
         StringBuilder registro = new StringBuilder();

@@ -9,7 +9,7 @@ public interface PuertoDAO {
     //CRUD de Puerto - Crear, Leer, Actualizar y Eliminar.
 
     //Create
-    public boolean guardarPuerto(Puerto puerto) throws LlaveDuplicadaException;
+    public void guardarPuerto(Puerto puerto) throws LlaveDuplicadaException;
 
     //Read
     public Puerto consultarPuertoPorIdentificacion(String idPuerto);

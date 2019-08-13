@@ -10,7 +10,7 @@ public interface HijoDAO {
     //CRUD de Hijo - Crear, Leer, Actualizar y Eliminar.
 
     //Create
-    public boolean guardarHijo(Hijo hijo) throws LlaveDuplicadaException;
+    public void guardarHijo(Hijo hijo) throws LlaveDuplicadaException;
 
     //Read
     public Hijo consultarHijoPorIdentificacion(String idHijo);

@@ -1,11 +1,14 @@
 package com.elbotecito.bsn;
 
 import com.elbotecito.bsn.exception.BarcoYaExisteException;
-import com.elbotecito.dao.BarcoDAO;
+import com.elbotecito.dao.*;
 import com.elbotecito.dao.exception.LlaveDuplicadaException;
 import com.elbotecito.dao.impl.BarcoDAONIO;
+import com.elbotecito.dao.impl.HijoDAONIO;
 import com.elbotecito.modelo.Barco;
+import com.elbotecito.modelo.Hijo;
 import javafx.scene.control.Alert;
+import jdk.nashorn.internal.objects.NativeArray;
 
 import java.util.List;
 
@@ -13,30 +16,87 @@ public class BarcoBsn {
 
 
     private BarcoDAO barcoDAO;
+    private CapitanDAO capitanDAO;
+    private HijoDAO hijoDAO;
+    private EsposaDAO esposaDAO;
+    private MarineroDAO marineroDAO;
 
-    public BarcoBsn(){
-        this.barcoDAO = new BarcoDAONIO(); {
-        }
+    public BarcoBsn() {
+        this.barcoDAO = new BarcoDAONIO();
     }
-    public void guardarBarco(Barco barco) throws BarcoYaExisteException{
+
+    public void guardarBarco(Barco barco) throws BarcoYaExisteException {
         try {
             this.barcoDAO.guardarBarco(barco);
-        }catch (LlaveDuplicadaException lde){
+        } catch (LlaveDuplicadaException lde) {
             throw new BarcoYaExisteException();
         }
     }
 
-    public static void main(String[] args) {
-        BarcoBsn barcoBsn = new BarcoBsn();
-        Barco barco1 = new Barco("999","230","12334","26/05/2020","La eliza", "zarpado","fragata");
+    public Barco consultarBarco(String matricula) {
+        return this.barcoDAO.consultarBarcoPorMatricula(matricula);
+    }
 
-        try {
-            barcoBsn.guardarBarco(barco1);
-        }catch (BarcoYaExisteException eyee){
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            System.out.println(eyee.getMessage());
-            eyee.printStackTrace();
+
+    public List<Barco> consultarBarcos() {
+        List<Barco> listaBarcos = this.barcoDAO.consultarBarcos();
+        return listaBarcos;
+
+    }
+
+    public void actualizarBarco(Barco barco) {
+        this.barcoDAO.actualizarBarco(barco);
+    }
+
+    public void eliminarBArco(String matricula) {
+        this.barcoDAO.eliminarBarco(matricula);
+
+    }
+
+
+    public static void main(String[] args) throws LlaveDuplicadaException, BarcoYaExisteException {
+        BarcoBsn barcoBsn = new BarcoBsn();
+        Barco barco1 = new Barco("123", "230", "12334", "26/05/2020", "a", "zarpado", "fragataA");
+        Barco barco2 = new Barco("1234", "230", "12334", "26/05/2020", "b", "zarpado", "fragataB");
+        Barco barco3 = new Barco("12345", "230", "12334", "26/05/2020", "c", "zarpado", "fragataC");
+        Barco barco4 = new Barco("123456", "230", "12334", "26/05/2020", "d", "zarpado", "fragataD");
+
+        Hijo hijo = new Hijo("123", "Juan", "M", "vivo", "el papa", "30");
+        HijoDAONIO hijoDAONIO = new HijoDAONIO();
+        hijoDAONIO.guardarHijo(hijo);
+        barcoBsn.guardarBarco(barco1);
+        barcoBsn.guardarBarco(barco2);
+        barcoBsn.guardarBarco(barco3);
+        barcoBsn.guardarBarco(barco4);
+
+        //-------------1
+        System.out.println("Primera consulta");
+        System.out.println(barcoBsn.consultarBarco("999"));
+
+        System.out.println("\n Consultar barcos Primera vez \n");
+        for (Barco barco : barcoBsn.consultarBarcos()) {
+            System.out.println(barco);
         }
+        //-----------Elimino un barco para probar
+        barcoBsn.eliminarBArco("123");
+
+        //-----------Imprimo
+        System.out.println("\n Consultar Barcos Segunda vez\n");
+        barcoBsn.consultarBarcos();
+        for (Barco barco : barcoBsn.consultarBarcos()) {
+            System.out.println(barco);
+        }
+        //-----------Actualizo un Barco
+        barco4.setCapacidadMax("999");
+        barco4.setFechaRegMerc("15/20/3000");
+        barcoBsn.actualizarBarco(barco4);
+        //Imprimo----------------------
+        System.out.println("\n Consultar Barcos Segunda vez\n");
+        barcoBsn.consultarBarcos();
+        for (Barco barco : barcoBsn.consultarBarcos()) {
+            System.out.println(barco);
+        }
+
     }
 
     /*
