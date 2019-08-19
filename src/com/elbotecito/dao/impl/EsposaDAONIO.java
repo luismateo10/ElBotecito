@@ -2,8 +2,6 @@ package com.elbotecito.dao.impl;
 
 import com.elbotecito.dao.EsposaDAO;
 import com.elbotecito.dao.exception.LlaveDuplicadaException;
-import com.elbotecito.modelo.Barco;
-import com.elbotecito.modelo.Esposa;
 import com.elbotecito.modelo.Esposa;
 import com.elbotecito.util.util;
 
@@ -27,15 +25,13 @@ import static java.nio.file.StandardOpenOption.APPEND;
 
 public class EsposaDAONIO implements EsposaDAO {
     private final static String NOMBRE_ARCHIVO = "Esposas"; //Kebab case
-    private final static int LONGITUD_REGISTRO = 150;
+    private final static int LONGITUD_REGISTRO = 102;
     private final static int LONGITUD_IDENTIFICACION = 20;
-    private final static int LONGITUD_NOMBRE = 10;
-    private final static int LONGITUD_SEXO = 20;
-    private final static int LONGITUD_ESTADOVIVO = 20;
-    private final static int LONGITUD_IDRUTA = 40;
-    private final static int LONGITUD_NUMHIJOS = 20;
-    private final static int LONGITUD_NUMESPOSAS = 20;
-    private final static int LONGITUD_FORTUNA = 20;
+    private final static int LONGITUD_NOMBRE = 40;
+    private final static int LONGITUD_SEXO = 1;
+    private final static int LONGITUD_ESTADOVIVO = 1;
+    private final static int LONGITUD_ESPOSO = 20;
+    private final static int LONGITUD_PORCHERENCIA = 20;
 
 
     private final static String ENCODING_FILE = System.getProperty("file.encoding");
@@ -170,6 +166,11 @@ public class EsposaDAONIO implements EsposaDAO {
     private String parseEsposa2String(Esposa esposa) {
         StringBuilder registro = new StringBuilder();
         registro.append(util.completarCampo(esposa.getIdentificacion(), LONGITUD_IDENTIFICACION));
+        registro.append(util.completarCampo(esposa.getNombre(), LONGITUD_NOMBRE));
+        registro.append(util.completarCampo(esposa.getSexo(), LONGITUD_SEXO));
+        registro.append(util.completarCampo(esposa.getEstadoVivo(), LONGITUD_ESTADOVIVO));
+        registro.append(util.completarCampo(esposa.getEsposo(), LONGITUD_ESPOSO));
+        registro.append(util.completarCampo(esposa.getPorcHerencia(), LONGITUD_PORCHERENCIA));
 
         return registro.toString();
     }
@@ -181,8 +182,28 @@ public class EsposaDAONIO implements EsposaDAO {
         registro.position(LONGITUD_IDENTIFICACION);
         registro = registro.slice();
 
-        String fortuna = registro.subSequence(0, LONGITUD_FORTUNA).toString().trim();
-        esposa.setPorcHerencia(fortuna);
+        String nombre = registro.subSequence(0, LONGITUD_NOMBRE).toString().trim();
+        esposa.setNombre(nombre);
+        registro.position(LONGITUD_NOMBRE);
+        registro = registro.slice();
+
+        String sexo = registro.subSequence(0, LONGITUD_SEXO).toString().trim();
+        esposa.setSexo(sexo);
+        registro.position(LONGITUD_SEXO);
+        registro = registro.slice();
+
+        String estadoVivo = registro.subSequence(0, LONGITUD_ESTADOVIVO).toString().trim();
+        esposa.setEstadoVivo(estadoVivo);
+        registro.position(LONGITUD_ESTADOVIVO);
+        registro = registro.slice();
+
+        String esposo = registro.subSequence(0, LONGITUD_ESPOSO).toString().trim();
+        esposa.setEsposo(esposo);
+        registro.position(LONGITUD_ESPOSO);
+        registro = registro.slice();
+
+        String porcHerencia = registro.subSequence(0, LONGITUD_PORCHERENCIA).toString().trim();
+        esposa.setPorcHerencia(porcHerencia);
 
         return esposa;
     }

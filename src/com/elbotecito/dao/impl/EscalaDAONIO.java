@@ -1,9 +1,8 @@
 package com.elbotecito.dao.impl;
 
 import com.elbotecito.dao.EscalaDAO;
+
 import com.elbotecito.dao.exception.LlaveDuplicadaException;
-import com.elbotecito.modelo.Barco;
-import com.elbotecito.modelo.Escala;
 import com.elbotecito.modelo.Escala;
 import com.elbotecito.util.util;
 
@@ -26,18 +25,12 @@ import static java.nio.file.StandardOpenOption.*;
 import static java.nio.file.StandardOpenOption.APPEND;
 
 
-//todo revisar esta clase que es especial de clave compuesta
 public class EscalaDAONIO implements EscalaDAO {
-    private final static String NOMBRE_ARCHIVO = "Escalaes"; //Kebab case
-    private final static int LONGITUD_REGISTRO = 150;
-    private final static int LONGITUD_IDENTIFICACION = 20;
-    private final static int LONGITUD_NOMBRE = 10;
-    private final static int LONGITUD_SEXO = 20;
-    private final static int LONGITUD_ESTADOVIVO = 20;
-    private final static int LONGITUD_IDRUTA = 40;
-    private final static int LONGITUD_NUMHIJOS = 20;
-    private final static int LONGITUD_NUMESPOSAS = 20;
-    private final static int LONGITUD_FORTUNA = 20;
+    private final static String NOMBRE_ARCHIVO = "Escalas"; //Kebab case
+    private final static int LONGITUD_REGISTRO = 60;
+    private final static int LONGITUD_IDRUTA = 20;
+    private final static int LONGITUD_IDPUERTO = 20;
+    private final static int LONGITUD_FECHAESCALA = 20;
 
 
     private final static String ENCODING_FILE = System.getProperty("file.encoding");
@@ -54,8 +47,10 @@ public class EscalaDAONIO implements EscalaDAO {
     }
 
     @Override
-    public void guardarEscala(Escala escala) {
-
+    public void guardarEscala(Escala escala) throws LlaveDuplicadaException {
+        if (consultarEscalaPorIdRuta(escala.getIdRuta()) != null && consultarEscalaPorIdRuta(escala.getIdPuerto()) != null) {
+            throw new LlaveDuplicadaException();
+        }
         String registro = parseEscala2String(escala);
         byte[] datosRegistro = registro.getBytes();
         ByteBuffer byteBuffer = ByteBuffer.wrap(datosRegistro);
@@ -66,6 +61,25 @@ public class EscalaDAONIO implements EscalaDAO {
             ioe.printStackTrace();
         }
 
+    }
+
+    @Override
+    public Escala consultarEscala(String idRuta, String idPuerto) {
+        try (SeekableByteChannel sbc = Files.newByteChannel(archivo)) {
+            ByteBuffer buffer = ByteBuffer.allocate(LONGITUD_REGISTRO);
+            while (sbc.read(buffer) > 0) {
+                buffer.rewind();
+                CharBuffer registro = Charset.forName(ENCODING_FILE).decode(buffer);
+                Escala escalaConvertido = parseEscalaRegistro2Objeto(registro);
+                if (escalaConvertido.getIdRuta().equals(idRuta) && escalaConvertido.getIdPuerto().equals(idPuerto)) {
+                    return escalaConvertido;
+                }
+                buffer.flip();
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -118,8 +132,8 @@ public class EscalaDAONIO implements EscalaDAO {
             while (sbc.read(buf) > 0) {
                 buf.rewind();
                 CharBuffer registro = Charset.forName(ENCODING_FILE).decode(buf);
-                String matricula = registro.subSequence(0, LONGITUD_IDENTIFICACION).toString().trim();
-                if (matricula.equals(escala.getIdRuta())) {
+                Escala escalaConvertido = parseEscalaRegistro2Objeto(registro);
+                if (escalaConvertido.getIdRuta().equals(escala.getIdRuta()) && escalaConvertido.getIdPuerto().equals(escala.getIdPuerto())) {
                     sbc.position(lastPosition);
                     sbc.write(ByteBuffer.wrap(parseEscala2String(escala).getBytes()));
                     return true;
@@ -134,7 +148,7 @@ public class EscalaDAONIO implements EscalaDAO {
     }
 
     @Override
-    public boolean eliminarEscala(String idEscala) {
+    public boolean eliminarEscala(String idEscala, String idPuerto) {
         boolean res = false;
         List<Escala> escalas = new ArrayList<>();
         try (SeekableByteChannel sbc = Files.newByteChannel(archivo)) {
@@ -153,7 +167,7 @@ public class EscalaDAONIO implements EscalaDAO {
         while (!escalas.isEmpty()) {
             Escala escalaAux = escalas.get(0);
             escalas.remove(0);
-            if (escalaAux.getIdRuta().equals(idEscala)) {
+            if (escalaAux.getIdRuta().equals(idEscala) && escalaAux.getIdPuerto().equals(idPuerto)) {
                 res = true;
             } else {
                 String registro = parseEscala2String(escalaAux);
@@ -171,20 +185,27 @@ public class EscalaDAONIO implements EscalaDAO {
 
     private String parseEscala2String(Escala escala) {
         StringBuilder registro = new StringBuilder();
-        registro.append(util.completarCampo(escala.getIdRuta(), LONGITUD_IDENTIFICACION));
+        registro.append(util.completarCampo(escala.getIdRuta(), LONGITUD_IDRUTA));
+        registro.append(util.completarCampo(escala.getIdPuerto(), LONGITUD_IDPUERTO));
+        registro.append(util.completarCampo(escala.getFechaEscala(), LONGITUD_FECHAESCALA));
 
         return registro.toString();
     }
 
     private Escala parseEscalaRegistro2Objeto(CharBuffer registro) {
         Escala escala = new Escala();
-        String identificacion = registro.subSequence(0, LONGITUD_IDENTIFICACION).toString().trim();
+        String identificacion = registro.subSequence(0, LONGITUD_IDRUTA).toString().trim();
         escala.setIdRuta(identificacion);
-        registro.position(LONGITUD_IDENTIFICACION);
+        registro.position(LONGITUD_IDRUTA);
         registro = registro.slice();
 
-        String fortuna = registro.subSequence(0, LONGITUD_FORTUNA).toString().trim();
-        escala.setIdPuerto(fortuna);
+        String idPuerto = registro.subSequence(0, LONGITUD_IDPUERTO).toString().trim();
+        escala.setIdRuta(idPuerto);
+        registro.position(LONGITUD_IDPUERTO);
+        registro = registro.slice();
+
+        String fechaEscala = registro.subSequence(0, LONGITUD_FECHAESCALA).toString().trim();
+        escala.setIdPuerto(fechaEscala);
 
         return escala;
     }

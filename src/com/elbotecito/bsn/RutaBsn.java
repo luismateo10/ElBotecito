@@ -1,168 +1,45 @@
 package com.elbotecito.bsn;
 
-import com.elbotecito.bsn.exception.BarcoYaExisteException;
-import com.elbotecito.dao.BarcoDAO;
+import com.elbotecito.bsn.exception.RutaYaExisteException;
+import com.elbotecito.dao.RutaDAO;
 import com.elbotecito.dao.exception.LlaveDuplicadaException;
-import com.elbotecito.dao.impl.BarcoDAONIO;
-import com.elbotecito.modelo.Barco;
+import com.elbotecito.dao.impl.RutaDAONIO;
+import com.elbotecito.modelo.Ruta;
 
 import java.util.List;
 
 public class RutaBsn {
 
 
-    private BarcoDAO barcoDAO;
+    private RutaDAO rutaDAO;
 
     public RutaBsn() {
-        this.barcoDAO = new BarcoDAONIO();
+        this.rutaDAO = new RutaDAONIO();
     }
 
-    public void guardarBarco(Barco barco) throws BarcoYaExisteException {
+    public void guardarRuta(Ruta ruta) throws RutaYaExisteException {
         try {
-            this.barcoDAO.guardarBarco(barco);
+            this.rutaDAO.guardarRuta(ruta);
         } catch (LlaveDuplicadaException lde) {
-            throw new BarcoYaExisteException();
+            throw new RutaYaExisteException();
         }
     }
 
-    public Barco consultarBarco(String matricula) {
-        return this.barcoDAO.consultarBarcoPorMatricula(matricula);
+    public Ruta consultarRuta(String numero) {
+        return this.rutaDAO.consultarRutaPorIdentificacion(numero);
     }
 
-
-    public List<Barco> consultarBarcos() {
-        List<Barco> listaBarcos = this.barcoDAO.consultarBarcos();
-        return listaBarcos;
-
+    public List<Ruta> consultarRutas() {
+        List<Ruta> listaRutas = this.rutaDAO.consultarRutas();
+        return listaRutas;
     }
 
-    public void actualizarBarco(Barco barco) {
-        this.barcoDAO.actualizarBarco(barco);
+    public boolean actualizarRuta(Ruta ruta) {
+       return this.rutaDAO.actualizarRuta(ruta);
     }
 
-    public void eliminarBArco(String matricula) {
-        this.barcoDAO.eliminarBarco(matricula);
-
+    public boolean eliminarRuta(String numero) {
+        return this.rutaDAO.eliminarRuta(numero);
     }
-
-
-    public static void main(String[] args) {
-        RutaBsn barcoBsn = new RutaBsn();
-        Barco barco1 = new Barco("123", "230", "12334", "26/05/2020", "a", "zarpado", "fragataA");
-        Barco barco2 = new Barco("1234", "230", "12334", "26/05/2020", "b", "zarpado", "fragataB");
-        Barco barco3 = new Barco("12345", "230", "12334", "26/05/2020", "c", "zarpado", "fragataC");
-        Barco barco4 = new Barco("123456", "230", "12334", "26/05/2020", "d", "zarpado", "fragataD");
-        try {
-            barcoBsn.guardarBarco(barco1);
-        } catch (BarcoYaExisteException eyee) {
-            System.out.println(eyee.getMessage());
-            eyee.printStackTrace();
-        }
-        try {
-            barcoBsn.guardarBarco(barco2);
-        } catch (BarcoYaExisteException eyee) {
-            System.out.println(eyee.getMessage());
-            eyee.printStackTrace();
-        }
-        try {
-            barcoBsn.guardarBarco(barco3);
-        } catch (BarcoYaExisteException eyee) {
-            System.out.println(eyee.getMessage());
-            eyee.printStackTrace();
-        }
-        try {
-            barcoBsn.guardarBarco(barco4);
-        } catch (BarcoYaExisteException eyee) {
-            System.out.println(eyee.getMessage());
-            eyee.printStackTrace();
-        }
-        //-------------1
-        System.out.println("Primera consulta");
-        System.out.println(barcoBsn.consultarBarco("999"));
-
-        System.out.println("\n Consultar barcos Primera vez \n");
-        for (Barco barco : barcoBsn.consultarBarcos()) {
-            System.out.println(barco);
-        }
-        //-----------Elimino un barco para probar
-        barcoBsn.eliminarBArco("123");
-
-        //-----------Imprimo
-        System.out.println("\n Consultar Barcos Segunda vez\n");
-        barcoBsn.consultarBarcos();
-        for (Barco barco : barcoBsn.consultarBarcos()) {
-            System.out.println(barco);
-        }
-        //-----------Actualizo un Barco
-        barco4.setCapacidadMax("999");
-        barco4.setFechaRegMerc("15/20/3000");
-        barcoBsn.actualizarBarco(barco4);
-        //Imprimo----------------------
-        System.out.println("\n Consultar Barcos Segunda vez\n");
-        barcoBsn.consultarBarcos();
-        for (Barco barco : barcoBsn.consultarBarcos()) {
-            System.out.println(barco);
-        }
-
-    }
-
-    /*
-    private BarcoDAO empleadoDAO;
-    private HerramientaDAO herramientaDAO;
-
-    public EmpleadoBsn(){
-        this.empleadoDAO = new EmpleadoDAONIO();
-        this.herramientaDAO = new HerramientaDAONIO();
-    }
-
-    public void guardarEmpleado(Empleado empleado) throws EmpleadoYaExisteException {
-        //todo validar reglas de negocio
-        //todo aplicar lógica de casos de uso
-        System.out.println("En el bsn");
-        try {
-            this.empleadoDAO.guardarEmpleado(empleado);
-        }catch (LlaveDuplicadaException lde){
-            throw new EmpleadoYaExisteException();
-        }
-    }
-
-    public Empleado consultarEmpleado(String identificacion){
-        return this.empleadoDAO.consultarEmpleadoPorIdentificacion(identificacion);
-    }
-
-    public List<Herramienta> consultarHerramientasEmpleado(String identificacion){
-        return this.herramientaDAO.consultarHerramientasPorIdEmpleado(identificacion);
-    }
-
-    public void almacenarHerramienta(Herramienta herramienta) throws HerramientaYaExisteException {
-        try {
-            this.herramientaDAO.guardarHerramienta(herramienta);
-        }catch (LlaveDuplicadaException lde){
-            throw new HerramientaYaExisteException();
-        }
-    }
-
-
-    public static void main(String[] args) {
-        /*Herramienta herramienta = new Herramienta("001", "Martillo", "123");
-        Herramienta herramienta2 = new Herramienta("002", "Taladro", "123");
-
-
-
-        try {
-            empleadoBsn.almacenarHerramienta(herramienta);
-            empleadoBsn.almacenarHerramienta(herramienta2);
-        }catch (HerramientaYaExisteException hyee){
-            hyee.printStackTrace();
-        }*/
-
-/*
-        EmpleadoBsn empleadoBsn = new EmpleadoBsn();
-        List<Herramienta> herramientas = empleadoBsn.consultarHerramientasEmpleado("12");
-        for(Herramienta herramienta: herramientas){
-            System.out.println(herramienta);
-        }
-    }
-    */
 
 }

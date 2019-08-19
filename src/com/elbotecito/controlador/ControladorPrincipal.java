@@ -1,5 +1,6 @@
 package com.elbotecito.controlador;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
 import com.elbotecito.bsn.BarcoBsn;
 import javafx.scene.image.Image;
@@ -23,22 +23,22 @@ import java.util.ResourceBundle;
 public class ControladorPrincipal implements Initializable {
 
     @FXML
-    private Button btnTripulacion;
+    private JFXButton btnTripulacion;
 
     @FXML
-    private Button btnBarcos;
+    private JFXButton btnBarcos;
 
     @FXML
-    private Button btnRutas;
+    private JFXButton btnRutas;
 
     @FXML
-    private Button btnReportes;
+    private JFXButton btnReportes;
 
     @FXML
-    private Button btnInformacion;
+    private JFXButton btnInformacion;
 
     @FXML
-    private Button btnEmpresa;
+    private JFXButton btnEmpresa;
 
     @FXML
     private TabPane Barcos;
@@ -52,7 +52,7 @@ public class ControladorPrincipal implements Initializable {
     private BarcoBsn barcoBsn = new BarcoBsn();
 
     @FXML
-    private void handleButtonClicks(ActionEvent event) {
+    private void handleJFXButtonClicks(ActionEvent event) {
 
         if (event.getSource() == btnEmpresa) {
             loadStage("/com/elbotecito/vista/Puerto.fxml");

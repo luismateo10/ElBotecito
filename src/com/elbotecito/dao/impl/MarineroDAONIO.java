@@ -27,15 +27,12 @@ import static java.nio.file.StandardOpenOption.APPEND;
 
 public class MarineroDAONIO implements MarineroDAO {
     private final static String NOMBRE_ARCHIVO = "Marineros"; //Kebab case
-    private final static int LONGITUD_REGISTRO = 150;
+    private final static int LONGITUD_REGISTRO = 82;
     private final static int LONGITUD_IDENTIFICACION = 20;
-    private final static int LONGITUD_NOMBRE = 10;
-    private final static int LONGITUD_SEXO = 20;
-    private final static int LONGITUD_ESTADOVIVO = 20;
-    private final static int LONGITUD_IDRUTA = 40;
-    private final static int LONGITUD_NUMHIJOS = 20;
-    private final static int LONGITUD_NUMESPOSAS = 20;
-    private final static int LONGITUD_FORTUNA = 20;
+    private final static int LONGITUD_NOMBRE = 40;
+    private final static int LONGITUD_SEXO = 1;
+    private final static int LONGITUD_ESTADOVIVO = 1;
+    private final static int LONGITUD_IDRUTA = 20;
 
 
     private final static String ENCODING_FILE = System.getProperty("file.encoding");
@@ -170,6 +167,10 @@ public class MarineroDAONIO implements MarineroDAO {
     private String parseMarinero2String(Marinero marinero) {
         StringBuilder registro = new StringBuilder();
         registro.append(util.completarCampo(marinero.getIdentificacion(), LONGITUD_IDENTIFICACION));
+        registro.append(util.completarCampo(marinero.getNombre(), LONGITUD_NOMBRE));
+        registro.append(util.completarCampo(marinero.getSexo(), LONGITUD_SEXO));
+        registro.append(util.completarCampo(marinero.getEstadoVivo(), LONGITUD_ESTADOVIVO));
+        registro.append(util.completarCampo(marinero.getIdRuta(), LONGITUD_IDRUTA));
 
         return registro.toString();
     }
@@ -181,8 +182,23 @@ public class MarineroDAONIO implements MarineroDAO {
         registro.position(LONGITUD_IDENTIFICACION);
         registro = registro.slice();
 
-        String fortuna = registro.subSequence(0, LONGITUD_FORTUNA).toString().trim();
-        marinero.setIdRuta(fortuna);
+        String nombre = registro.subSequence(0, LONGITUD_NOMBRE).toString().trim();
+        marinero.setNombre(nombre);
+        registro.position(LONGITUD_NOMBRE);
+        registro = registro.slice();
+
+        String sexo = registro.subSequence(0, LONGITUD_SEXO).toString().trim();
+        marinero.setSexo(sexo);
+        registro.position(LONGITUD_SEXO);
+        registro = registro.slice();
+
+        String estadoVivo = registro.subSequence(0, LONGITUD_ESTADOVIVO).toString().trim();
+        marinero.setEstadoVivo(estadoVivo);
+        registro.position(LONGITUD_ESTADOVIVO);
+        registro = registro.slice();
+
+        String idRuta = registro.subSequence(0, LONGITUD_IDRUTA).toString().trim();
+        marinero.setIdRuta(idRuta);
 
         return marinero;
     }

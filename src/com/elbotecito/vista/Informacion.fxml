@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Text?>
 
-
-<?import javafx.scene.shape.Polygon?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" stylesheets="@style.css"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elbotecito.controlador.ControladorInformacion">
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: white;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elbotecito.controlador.ControladorInformacion">
    <children>
-      <Pane id="cabecera" prefHeight="113.0" prefWidth="1080.0">
+      <Pane id="cabecera" prefHeight="113.0" prefWidth="1080.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Text id="h1" fill="WHITE" layoutX="36.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="PUERTOS"/>
+            <Text id="h1" fill="WHITE" layoutX="36.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INFORMACIÓN" />
          </children>
       </Pane>
-      <Polygon id="bandera" layoutX="968.0" layoutY="184.0" nodeOrientation="LEFT_TO_RIGHT"
-               points="-106.0, 49.0, -17.0, 21.0, 65.0, 49.0, 65.0, -134.0, -106.0, -134.0" strokeType="INSIDE"
-               strokeWidth="0.0"/>
-      <HBox fx:id="hBoxImagen" layoutX="889.0" layoutY="69.0" prefHeight="120.0" prefWidth="119.0">
+      <Polygon id="bandera" layoutX="968.0" layoutY="184.0" nodeOrientation="LEFT_TO_RIGHT" points="-106.0, 49.0, -17.0, 21.0, 65.0, 49.0, 65.0, -134.0, -106.0, -134.0" strokeType="INSIDE" strokeWidth="0.0" AnchorPane.rightAnchor="47.0" AnchorPane.topAnchor="50.0" />
+      <HBox fx:id="hBoxImagen" layoutX="889.0" layoutY="69.0" prefHeight="120.0" prefWidth="119.0" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="69.0">
          <children>
-            <ImageView fx:id="imagenBandera" fitHeight="120.0" fitWidth="120.0" nodeOrientation="INHERIT"
-                       pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imagenBandera" fitHeight="120.0" fitWidth="120.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@imagenes/Timon.png"/>
+                  <Image url="@imagenes/Timon.png" />
                </image>
             </ImageView>
          </children>
       </HBox>
+      <Text layoutX="42.0" layoutY="694.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Realizada por Luis Mateo Hincapié Martínez" wrappingWidth="260.13671875" />
+      <Text id="h1" fill="#1021a1" layoutX="42.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="El botecito" />
+      <Text layoutX="42.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Esta aplicación permite almacenar información de una empresa de barcos, que gestiona las rutas. En un archivo de texto. Cada formulario generado en el software, tiene su propio archivo de almacenamiento a su vez se puede visualizar, modificar y eliminar datos." textAlignment="JUSTIFY" wrappingWidth="757.2109375" />
+      <Text layoutX="42.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Patron MVC" textAlignment="JUSTIFY" wrappingWidth="102.2109375" />
+      <Text layoutX="42.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Java NIO" textAlignment="JUSTIFY" wrappingWidth="102.2109375" />
+      <Text layoutX="42.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Java FX con Scene Builder" textAlignment="JUSTIFY" wrappingWidth="222.2109375" />
    </children>
 </AnchorPane>

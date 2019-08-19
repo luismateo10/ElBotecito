@@ -10,7 +10,6 @@ import java.util.List;
 
 public class PuertoBsn {
 
-
     private PuertoDAO puertoDAO;
 
     public PuertoBsn() {
@@ -36,12 +35,12 @@ public class PuertoBsn {
 
     }
 
-    public void actualizarPuerto(Puerto puerto) {
-        this.puertoDAO.actualizarPuerto(puerto);
+    public boolean actualizarPuerto(Puerto puerto) {
+        return this.puertoDAO.actualizarPuerto(puerto);
     }
 
-    public void eliminarPuerto(String identificacion) {
-        this.puertoDAO.eliminarPuerto(identificacion);
+    public boolean eliminarPuerto(String identificacion) {
+        return this.puertoDAO.eliminarPuerto(identificacion);
 
     }
 

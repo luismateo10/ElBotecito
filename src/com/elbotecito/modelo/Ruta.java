@@ -5,12 +5,19 @@ import java.util.List;
 
 public class Ruta {
     private String numero;
+
     private String matriculaBarco;
+
     private String idPuertoOrigen;
+
     private String fechaPuertoOrigen;
+
     private String idPuertoDestino;
+
     private String fechaPuertoDestino;
+
     private String idPuertoAtual;
+
     private String idCapitan;
 
     //Relaciones

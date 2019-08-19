@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="464.0" y="299.0">com.elbotecito.controlador.ControladorInformacion</node>
+    <node x="371.0" y="446.0">com.elbotecito.dao.impl.EscalaDAONIO</node>
+    <node x="357.0" y="664.0">com.elbotecito.bsn.PuertoBsn</node>
+    <node x="0.0" y="446.0">com.elbotecito.dao.impl.MarineroDAONIO</node>
+    <node x="245.0" y="76.0">com.elbotecito.dao.impl.PuertoDAONIO</node>
+    <node x="189.0" y="446.0">com.elbotecito.dao.impl.CapitanDAONIO</node>
+    <node x="0.0" y="299.0">com.elbotecito.modelo.Marinero</node>
+    <node x="399.0" y="735.0">com.elbotecito.modelo.Ruta</node>
+    <node x="237.0" y="299.0">com.elbotecito.modelo.Esposa</node>
+    <node x="0.0" y="735.0">com.elbotecito.bsn.RutaBsn</node>
+    <node x="168.0" y="593.0">com.elbotecito.dao.impl.HijoDAONIO</node>
+    <node x="556.5" y="370.0">com.elbotecito.dao.EsposaDAO</node>
+    <node x="329.0" y="593.0">com.elbotecito.dao.impl.RutaDAONIO</node>
+    <node x="0.0" y="593.0">com.elbotecito.dao.impl.BarcoDAONIO</node>
+    <node x="122.0" y="299.0">com.elbotecito.modelo.Capitan</node>
+    <node x="196.0" y="664.0">com.elbotecito.bsn.PersonaBsn</node>
+    <node x="255.5" y="0.0">com.elbotecito.dao.PuertoDAO</node>
+    <node x="339.5" y="517.0">com.elbotecito.dao.RutaDAO</node>
+    <node x="381.5" y="370.0">com.elbotecito.dao.EscalaDAO</node>
+    <node x="266.0" y="152.0">com.elbotecito.modelo.Puerto</node>
+    <node x="490.0" y="517.0">com.elbotecito.controlador.ControladorBarco</node>
+    <node x="178.5" y="517.0">com.elbotecito.dao.HijoDAO</node>
+    <node x="546.0" y="446.0">com.elbotecito.dao.impl.EsposaDAONIO</node>
+    <node x="0.0" y="0.0">com.elbotecito.controlador.ControladorTripulacion</node>
+    <node x="177.75" y="223.0">com.elbotecito.modelo.Persona</node>
+    <node x="17.5" y="152.0">com.elbotecito.controlador.ControladorPuerto</node>
+    <node x="140.0" y="735.0">com.elbotecito.modelo.Escala</node>
+    <node x="199.5" y="370.0">com.elbotecito.dao.CapitanDAO</node>
+    <node x="665.0" y="664.0">com.elbotecito.bsn.BarcoBsn</node>
+    <node x="273.0" y="735.0">com.elbotecito.modelo.Barco</node>
+    <node x="0.0" y="664.0">com.elbotecito.controlador.ControladorRuta</node>
+    <node x="471.0" y="223.0">com.elbotecito.controlador.ControladorPrincipal</node>
+    <node x="345.0" y="299.0">com.elbotecito.modelo.Hijo</node>
+    <node x="14.0" y="76.0">com.elbotecito.controlador.ControladorReporte</node>
+    <node x="511.0" y="664.0">com.elbotecito.bsn.EscalaBsn</node>
+    <node x="10.5" y="370.0">com.elbotecito.dao.MarineroDAO</node>
+    <node x="10.5" y="517.0">com.elbotecito.dao.BarcoDAO</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.elbotecito.dao.impl.HijoDAONIO" target="com.elbotecito.dao.HijoDAO">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="com.elbotecito.controlador.ControladorReporte" target="com.elbotecito.controlador.ControladorTripulacion">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="com.elbotecito.modelo.Puerto" target="com.elbotecito.dao.impl.PuertoDAONIO">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="com.elbotecito.dao.impl.EscalaDAONIO" target="com.elbotecito.dao.EscalaDAO">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="com.elbotecito.modelo.Marinero" target="com.elbotecito.modelo.Persona">
+      <point x="0.0" y="-13.0" />
+      <point x="51.0" y="269.0" />
+      <point x="189.625" y="269.0" />
+      <point x="-35.625" y="13.0" />
+    </edge>
+    <edge source="com.elbotecito.modelo.Capitan" target="com.elbotecito.modelo.Persona">
+      <point x="0.0" y="-13.0" />
+      <point x="169.5" y="279.0" />
+      <point x="213.375" y="279.0" />
+      <point x="-11.875" y="13.0" />
+    </edge>
+    <edge source="com.elbotecito.dao.impl.EsposaDAONIO" target="com.elbotecito.dao.EsposaDAO">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="com.elbotecito.modelo.Esposa" target="com.elbotecito.modelo.Persona">
+      <point x="0.0" y="-13.0" />
+      <point x="281.0" y="279.0" />
+      <point x="237.125" y="279.0" />
+      <point x="11.875" y="13.0" />
+    </edge>
+    <edge source="com.elbotecito.dao.impl.RutaDAONIO" target="com.elbotecito.dao.RutaDAO">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="com.elbotecito.controlador.ControladorPuerto" target="com.elbotecito.controlador.ControladorReporte">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="com.elbotecito.dao.impl.BarcoDAONIO" target="com.elbotecito.dao.BarcoDAO">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="com.elbotecito.controlador.ControladorInformacion" target="com.elbotecito.controlador.ControladorPrincipal">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="com.elbotecito.dao.impl.PuertoDAONIO" target="com.elbotecito.dao.PuertoDAO">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="com.elbotecito.modelo.Hijo" target="com.elbotecito.modelo.Persona">
+      <point x="0.0" y="-13.0" />
+      <point x="382.0" y="269.0" />
+      <point x="260.875" y="269.0" />
+      <point x="35.625" y="13.0" />
+    </edge>
+    <edge source="com.elbotecito.dao.impl.MarineroDAONIO" target="com.elbotecito.dao.MarineroDAO">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="com.elbotecito.dao.impl.CapitanDAONIO" target="com.elbotecito.dao.CapitanDAO">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="296.0" y="333.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>Project Files</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

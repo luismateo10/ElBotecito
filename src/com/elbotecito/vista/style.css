@@ -1,3 +1,12 @@
+
+/*---------------------TEXTOS---------------------*/
+#mensaje{
+    -fx-text-fill: white !important;
+    -fx-background-color: transparent;
+    -fx-font-family: Corbel;
+    -fx-effect: none;
+}
+
 /*---------------------TEXTOS---------------------*/
 
 #h1 {
@@ -36,7 +45,7 @@
     -fx-font-weight: bold;
 }
 /*---------------------TEXTFIELDs---------------------*/
-.text-field {
+/*.text-field {
     -fx-background-color: -fx-text-box-border, white;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-background-radius: 0;
@@ -45,6 +54,8 @@
 .text-field:focused {
     -fx-background-color: #2865da, white;
 }
+
+ */
 
 /*---------------------BUTTONs---------------------*/
 .button {
@@ -85,6 +96,13 @@
 }
 
 /*---------------------TAP PANES---------------------*/
+.jfx-tab-pane .tab-selected-line { -fx-background-color:  white; }
+
+.jfx-tab-pane .tab-header-area .tab-header-background {
+    /*-fx-opacity: 0.0;*/
+    -fx-background-color:linear-gradient(to left, #0575e6ff, #021b79ff) !important;
+}
+
 .tab-pane .tab-header-area .tab-header-background {
     -fx-opacity: 0;
 }
@@ -98,33 +116,39 @@
 }
 
 .tab-pane .tab {
-    -fx-background-color: #313131;
+    -fx-background-color: #2865da;
 
 }
 
 .tab-pane .tab:selected {
-    -fx-background-color: #00695c;
-    -fx-border: #00695c;
+    -fx-background-color: #021b79ff;
+    -fx-border: #021b79ff;
+    -fx-text-fill: #ffffff;
+
 }
 
 .tab .tab-label {
     -fx-alignment: CENTER;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #bbbbbb;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
+    -fx-font-family: Corbel;
+
+
 }
 
 .tab:selected .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: #ffffff;
-    -fx-border: #00695c;
+    -fx-border: #021b79ff;
 }
 
 /*---------------------TAPVIEW---------------------*/
+/*
 .table-view {
-    -fx-base: #313131;
-    -fx-control-inner-background: #313131;
-    -fx-background-color: #313131;
+    -fx-base: white;
+    -fx-control-inner-background: #2865da;
+    -fx-background-color: white;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -144,8 +168,8 @@
 
 .table-view .column-header .label {
     -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-font-family: corbel;
+    -fx-text-fill: #021b79ff;
     -fx-alignment: center-left;
     -fx-opacity: 1;
 }
@@ -153,3 +177,5 @@
 .table-view:focused .table-row-cell:filled:focused:selected {
     -fx-background-color: -fx-focus-color;
 }
+
+ */

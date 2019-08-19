@@ -27,21 +27,20 @@ import java.util.Set;
 public class BarcoDAONIO implements BarcoDAO {
 
     private final static String NOMBRE_ARCHIVO = "Barcos"; //Kebab case
-    private final static int LONGITUD_REGISTRO = 150;
+    private final static int LONGITUD_REGISTRO = 160;
     private final static int LONGITUD_MATRICULA = 20;
     private final static int LONGITUD_CAPACIDADMAXIMA = 10;
     private final static int LONGITUD_NUMEROREGMEC = 20;
     private final static int LONGITUD_FECHAREGMERC = 20;
     private final static int LONGITUD_NOMBRE = 40;
     private final static int LONGITUD_ESTADO = 20;
-    private final static int LONGITUD_TIPOID = 20;
+    private final static int LONGITUD_TIPOBARCO = 30;
 
-    //private final static String ENCODING_WINDOWS = "ASCII";
-
-    // Se utiliza la propiedad del sistema que indica la codificacion de los archivos
     private final static String ENCODING_FILE = System.getProperty("file.encoding");
-    private static final String REGISTRO_ELIMINADO_TEXT = "99999999999999999999";
     private final static Path archivo = Paths.get(NOMBRE_ARCHIVO);
+    //private final static String ENCODING_WINDOWS = "ASCII";
+    // Se utiliza la propiedad del sistema que indica la codificacion de los archivos
+    //private static final String REGISTRO_ELIMINADO_TEXT = "99999999999999999999";
 
     public BarcoDAONIO() {
         if (!Files.exists(archivo)) {
@@ -207,7 +206,7 @@ public class BarcoDAONIO implements BarcoDAO {
         registro.append(util.completarCampo(barco.getFechaRegMerc(), LONGITUD_FECHAREGMERC));
         registro.append(util.completarCampo(barco.getNombre(), LONGITUD_NOMBRE));
         registro.append(util.completarCampo(barco.getEstado(), LONGITUD_ESTADO));
-        registro.append(util.completarCampo(barco.getTipoId(), LONGITUD_TIPOID));
+        registro.append(util.completarCampo(barco.getTipoBarco(), LONGITUD_TIPOBARCO));
         return registro.toString();
     }
 
@@ -243,8 +242,8 @@ public class BarcoDAONIO implements BarcoDAO {
         registro.position(LONGITUD_ESTADO);
         registro = registro.slice();
 
-        String tipoId = registro.subSequence(0, LONGITUD_TIPOID).toString().trim();
-        barco.setTipoId(tipoId);
+        String tipoBarco = registro.subSequence(0, LONGITUD_TIPOBARCO).toString().trim();
+        barco.setTipoBarco(tipoBarco);
 
         return barco;
     }

@@ -26,14 +26,14 @@ import static java.nio.file.StandardOpenOption.*;
 public class CapitanDAONIO implements CapitanDAO {
 
     private final static String NOMBRE_ARCHIVO = "Capitanes"; //Kebab case
-    private final static int LONGITUD_REGISTRO = 150;
+    private final static int LONGITUD_REGISTRO = 106;
     private final static int LONGITUD_IDENTIFICACION = 20;
-    private final static int LONGITUD_NOMBRE = 10;
-    private final static int LONGITUD_SEXO = 20;
-    private final static int LONGITUD_ESTADOVIVO = 20;
-    private final static int LONGITUD_IDRUTA = 40;
-    private final static int LONGITUD_NUMHIJOS = 20;
-    private final static int LONGITUD_NUMESPOSAS = 20;
+    private final static int LONGITUD_NOMBRE = 40;
+    private final static int LONGITUD_SEXO = 1;
+    private final static int LONGITUD_ESTADOVIVO = 1;
+    private final static int LONGITUD_IDRUTA = 20;
+    private final static int LONGITUD_NUMHIJOS = 2;
+    private final static int LONGITUD_NUMESPOSAS = 2;
     private final static int LONGITUD_FORTUNA = 20;
 
 
@@ -169,6 +169,13 @@ public class CapitanDAONIO implements CapitanDAO {
     private String parseCapitan2String(Capitan capitan) {
         StringBuilder registro = new StringBuilder();
         registro.append(util.completarCampo(capitan.getIdentificacion(), LONGITUD_IDENTIFICACION));
+        registro.append(util.completarCampo(capitan.getNombre(), LONGITUD_NOMBRE));
+        registro.append(util.completarCampo(capitan.getSexo(), LONGITUD_SEXO));
+        registro.append(util.completarCampo(capitan.getEstadoVivo(), LONGITUD_ESTADOVIVO));
+        registro.append(util.completarCampo(capitan.getIdRuta(), LONGITUD_IDRUTA));
+        registro.append(util.completarCampo(capitan.getNumHijos(), LONGITUD_NUMHIJOS));
+        registro.append(util.completarCampo(capitan.getNumEsposas(), LONGITUD_NUMESPOSAS));
+        registro.append(util.completarCampo(capitan.getFortuna(), LONGITUD_FORTUNA));
 
         return registro.toString();
     }
@@ -178,6 +185,36 @@ public class CapitanDAONIO implements CapitanDAO {
         String identificacion = registro.subSequence(0, LONGITUD_IDENTIFICACION).toString().trim();
         capitan.setIdentificacion(identificacion);
         registro.position(LONGITUD_IDENTIFICACION);
+        registro = registro.slice();
+
+        String nombre = registro.subSequence(0, LONGITUD_NOMBRE).toString().trim();
+        capitan.setNombre(nombre);
+        registro.position(LONGITUD_NOMBRE);
+        registro = registro.slice();
+
+        String sexo = registro.subSequence(0, LONGITUD_SEXO).toString().trim();
+        capitan.setSexo(sexo);
+        registro.position(LONGITUD_SEXO);
+        registro = registro.slice();
+
+        String estadoVivo = registro.subSequence(0, LONGITUD_ESTADOVIVO).toString().trim();
+        capitan.setEstadoVivo(estadoVivo);
+        registro.position(LONGITUD_ESTADOVIVO);
+        registro = registro.slice();
+
+        String idRuta = registro.subSequence(0, LONGITUD_IDRUTA).toString().trim();
+        capitan.setIdRuta(idRuta);
+        registro.position(LONGITUD_IDRUTA);
+        registro = registro.slice();
+
+        String numHijos = registro.subSequence(0, LONGITUD_NUMHIJOS).toString().trim();
+        capitan.setNumHijos(numHijos);
+        registro.position(LONGITUD_NUMHIJOS);
+        registro = registro.slice();
+
+        String numEsposas = registro.subSequence(0, LONGITUD_NUMESPOSAS).toString().trim();
+        capitan.setNumEsposas(numEsposas);
+        registro.position(LONGITUD_NUMESPOSAS);
         registro = registro.slice();
 
         String fortuna = registro.subSequence(0, LONGITUD_FORTUNA).toString().trim();

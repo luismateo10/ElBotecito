@@ -9,9 +9,11 @@ public interface EscalaDAO {
     //CRUD de Escala - Crear, Leer, Actualizar y Eliminar.
 
     //Create
-    public void guardarEscala(Escala escala);
+    public void guardarEscala(Escala escala) throws LlaveDuplicadaException;
 
     //Read
+    public Escala consultarEscala(String idRuta, String idPuerto);
+
     public List<Escala> consultarEscalaPorIdRuta(String idRuta);
 
     public List<Escala> consultarEscalas();
@@ -20,5 +22,5 @@ public interface EscalaDAO {
     public boolean actualizarEscala(Escala escala);
 
     //Delete
-    public boolean eliminarEscala(String idRuta);
+    public boolean eliminarEscala(String idRuta, String idPuerto);
 }

@@ -2,8 +2,6 @@ package com.elbotecito.dao.impl;
 
 import com.elbotecito.dao.RutaDAO;
 import com.elbotecito.dao.exception.LlaveDuplicadaException;
-import com.elbotecito.modelo.Barco;
-import com.elbotecito.modelo.Ruta;
 import com.elbotecito.modelo.Ruta;
 import com.elbotecito.util.util;
 
@@ -27,15 +25,15 @@ import static java.nio.file.StandardOpenOption.APPEND;
 
 public class RutaDAONIO implements RutaDAO {
     private final static String NOMBRE_ARCHIVO = "Rutas"; //Kebab case
-    private final static int LONGITUD_REGISTRO = 150;
+    private final static int LONGITUD_REGISTRO = 160;
     private final static int LONGITUD_NUMERO = 20;
-    private final static int LONGITUD_NOMBRE = 10;
-    private final static int LONGITUD_SEXO = 20;
-    private final static int LONGITUD_ESTADOVIVO = 20;
-    private final static int LONGITUD_IDRUTA = 40;
-    private final static int LONGITUD_NUMHIJOS = 20;
-    private final static int LONGITUD_NUMESPOSAS = 20;
-    private final static int LONGITUD_FORTUNA = 20;
+    private final static int LONGITUD_MATRICULABARCO = 20;
+    private final static int LONGITUD_IDPUERTOORIGEN = 20;
+    private final static int LONGITUD_FECHAPUERTOORIGEN = 20;
+    private final static int LONGITUD_IDPUERTODESTINO = 20;
+    private final static int LONGITUD_FECHAPUERTODESTINO = 20;
+    private final static int LONGITUD_IDPUERTOACTUAL = 20;
+    private final static int LONGITUD_IDCAPITAN = 20;
 
 
     private final static String ENCODING_FILE = System.getProperty("file.encoding");
@@ -170,6 +168,13 @@ public class RutaDAONIO implements RutaDAO {
     private String parseRuta2String(Ruta ruta) {
         StringBuilder registro = new StringBuilder();
         registro.append(util.completarCampo(ruta.getNumero(), LONGITUD_NUMERO));
+        registro.append(util.completarCampo(ruta.getMatriculaBarco(),LONGITUD_MATRICULABARCO));
+        registro.append(util.completarCampo(ruta.getIdPuertoOrigen(), LONGITUD_IDPUERTOORIGEN));
+        registro.append(util.completarCampo(ruta.getFechaPuertoOrigen(), LONGITUD_FECHAPUERTOORIGEN));
+        registro.append(util.completarCampo(ruta.getIdPuertoDestino(), LONGITUD_IDPUERTODESTINO));
+        registro.append(util.completarCampo(ruta.getFechaPuertoDestino(), LONGITUD_FECHAPUERTODESTINO));
+        registro.append(util.completarCampo(ruta.getIdPuertoAtual(), LONGITUD_IDPUERTOACTUAL));
+        registro.append(util.completarCampo(ruta.getIdCapitan(), LONGITUD_IDCAPITAN));
 
         return registro.toString();
     }
@@ -181,8 +186,38 @@ public class RutaDAONIO implements RutaDAO {
         registro.position(LONGITUD_NUMERO);
         registro = registro.slice();
 
-        String fortuna = registro.subSequence(0, LONGITUD_FORTUNA).toString().trim();
-        ruta.setIdCapitan(fortuna);
+        String matriculaBarco = registro.subSequence(0, LONGITUD_MATRICULABARCO).toString().trim();
+        ruta.setMatriculaBarco(matriculaBarco);
+        registro.position(LONGITUD_MATRICULABARCO);
+        registro = registro.slice();
+
+        String idPuertoOrigen = registro.subSequence(0, LONGITUD_IDPUERTOORIGEN).toString().trim();
+        ruta.setIdPuertoOrigen(idPuertoOrigen);
+        registro.position(LONGITUD_IDPUERTOORIGEN);
+        registro = registro.slice();
+
+        String fechaPuertoOrigen = registro.subSequence(0, LONGITUD_FECHAPUERTOORIGEN).toString().trim();
+        ruta.setFechaPuertoOrigen(fechaPuertoOrigen);
+        registro.position(LONGITUD_FECHAPUERTOORIGEN);
+        registro = registro.slice();
+
+        String idPuertoDestino = registro.subSequence(0, LONGITUD_IDPUERTODESTINO).toString().trim();
+        ruta.setIdPuertoDestino(idPuertoDestino);
+        registro.position(LONGITUD_IDPUERTODESTINO);
+        registro = registro.slice();
+
+        String fechaPuertoDestino = registro.subSequence(0, LONGITUD_FECHAPUERTODESTINO).toString().trim();
+        ruta.setFechaPuertoDestino(fechaPuertoDestino);
+        registro.position(LONGITUD_FECHAPUERTODESTINO);
+        registro = registro.slice();
+
+        String idPuertoAtual = registro.subSequence(0, LONGITUD_IDPUERTOACTUAL).toString().trim();
+        ruta.setIdPuertoAtual(idPuertoAtual);
+        registro.position(LONGITUD_IDPUERTOACTUAL);
+        registro = registro.slice();
+
+        String idCapitan = registro.subSequence(0, LONGITUD_IDCAPITAN).toString().trim();
+        ruta.setIdCapitan(idCapitan);
 
         return ruta;
     }

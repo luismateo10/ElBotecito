@@ -1,30 +1,277 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Text?>
-
-
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Polygon?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" stylesheets="@style.css"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elbotecito.controlador.ControladorReporte">
-   <Pane id="cabecera" prefHeight="113.0" prefWidth="1080.0">
-      <children>
-         <Text id="h1" fill="WHITE" layoutX="36.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0"
-               text="REPORTES" />
-      </children>
-   </Pane>
-   <Polygon id="bandera" layoutX="968.0" layoutY="184.0" nodeOrientation="LEFT_TO_RIGHT" points="-106.0, 49.0, -17.0, 21.0, 65.0, 49.0, 65.0, -134.0, -106.0, -134.0" strokeType="INSIDE" strokeWidth="0.0" />
-   <HBox fx:id="hBoxImagen" layoutX="889.0" layoutY="69.0" prefHeight="120.0" prefWidth="119.0">
-      <children>
-         <ImageView fx:id="imagenBandera" fitHeight="120.0" fitWidth="120.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@imagenes/Timon.png" />
-            </image>
-         </ImageView>
-      </children>
-   </HBox>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: white;" stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.elbotecito.controlador.ControladorReporte">
+    <Pane id="cabecera" prefHeight="113.0" prefWidth="1080.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
+        <children>
+            <Text id="h1" fill="WHITE" layoutX="36.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="REPORTES"/>
+        </children>
+    </Pane>
+    <Polygon id="bandera" layoutX="968.0" layoutY="184.0" nodeOrientation="LEFT_TO_RIGHT"
+             points="-106.0, 49.0, -17.0, 21.0, 65.0, 49.0, 65.0, -134.0, -106.0, -134.0" strokeType="INSIDE"
+             strokeWidth="0.0" AnchorPane.rightAnchor="47.0" AnchorPane.topAnchor="50.0"/>
+    <HBox fx:id="hBoxImagen" layoutX="889.0" layoutY="69.0" prefHeight="120.0" prefWidth="119.0"
+          AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="69.0">
+        <children>
+            <ImageView fx:id="imagenBandera" fitHeight="120.0" fitWidth="120.0" nodeOrientation="INHERIT"
+                       pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@imagenes/Timon.png"/>
+                </image>
+            </ImageView>
+        </children>
+    </HBox>
+    <JFXTabPane layoutX="14.0" layoutY="129.0" prefHeight="555.0" prefWidth="825.0" tabClosingPolicy="UNAVAILABLE"
+                AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="241.0"
+                AnchorPane.topAnchor="129.0">
+        <tabs>
+            <Tab text="Barcos">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <TableView fx:id="barcos" layoutX="13.0" layoutY="14.0" prefHeight="469.0" prefWidth="799.0"
+                                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0"
+                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
+                                <columns>
+                                    <TableColumn fx:id="matriculaBarco" text="Matricula"/>
+                                    <TableColumn fx:id="nombreBarco" text="Nombre"/>
+                                    <TableColumn fx:id="tipoBarcoBarco" text="Tipo"/>
+                                    <TableColumn fx:id="capacidadMaxBarco" text="Capacidad Max"/>
+                                    <TableColumn fx:id="numeroRegMercBarco" text="Registro Mercantil"/>
+                                    <TableColumn fx:id="fechaRegMercBarco" text="F V Reg Merc"/>
+                                    <TableColumn fx:id="estadoBarco" text="Estado"/>
+                                </columns>
+                            </TableView>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+            <Tab text="Puertos">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <TableView fx:id="puertos" layoutX="13.0" layoutY="41.0" prefHeight="469.0"
+                                       prefWidth="799.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0"
+                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
+                                <columns>
+                                    <TableColumn fx:id="identificacionPuerto" text="Identificacion"/>
+                                    <TableColumn fx:id="nombrePuerto" text="Nombre"/>
+                                    <TableColumn fx:id="ciudadPuerto" text="Ciudad"/>
+                                </columns>
+                            </TableView>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+            <Tab text="Personas">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <JFXTabPane layoutX="14.0" layoutY="14.0" prefHeight="510.0" prefWidth="810.0"
+                                        tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0"
+                                        AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0"
+                                        AnchorPane.topAnchor="14.0">
+                                <tabs>
+                                    <Tab text="Capitanes">
+                                        <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                        prefWidth="200.0">
+                                                <children>
+                                                    <TableView fx:id="capitanes" layoutX="14.0" layoutY="14.0"
+                                                               prefHeight="469.0" prefWidth="799.0"
+                                                               AnchorPane.bottomAnchor="0.0"
+                                                               AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0"
+                                                               AnchorPane.topAnchor="14.0">
+                                                        <columns>
+                                                            <TableColumn fx:id="identificacionCapitan"
+                                                                         text="Identificacion"/>
+                                                            <TableColumn fx:id="nombreCapitan" text="Nombre"/>
+                                                            <TableColumn fx:id="sexoCapitan" text="Sexo"/>
+                                                            <TableColumn fx:id="estadoVivoCapitan" text="Estado"/>
+                                                            <TableColumn fx:id="idRutaCapitan" text="Ruta"/>
+                                                            <TableColumn fx:id="numHijosCapitan" text="Hijos"/>
+                                                            <TableColumn fx:id="numEsposasCapitan" text="Esposas"/>
+                                                            <TableColumn fx:id="fortunaCapitan" text="Fortuna"/>
+                                                        </columns>
+                                                    </TableView>
+                                                </children>
+                                            </AnchorPane>
+                                        </content>
+                                    </Tab>
+                                    <Tab text="Marineros">
+                                        <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                        prefWidth="200.0">
+                                                <children>
+                                                    <TableView fx:id="marineros" layoutX="14.0" layoutY="14.0"
+                                                               prefHeight="469.0" prefWidth="799.0"
+                                                               AnchorPane.bottomAnchor="0.0"
+                                                               AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0"
+                                                               AnchorPane.topAnchor="14.0">
+                                                        <columns>
+                                                            <TableColumn fx:id="identificacionMarinero" prefWidth="75.0"
+                                                                         text="Identificacion"/>
+                                                            <TableColumn fx:id="nombreMarinero" prefWidth="75.0"
+                                                                         text="Nombre"/>
+                                                            <TableColumn fx:id="sexoMarinero" prefWidth="75.0"
+                                                                         text="Sexo"/>
+                                                            <TableColumn fx:id="estadoVivoMarinero" prefWidth="75.0"
+                                                                         text="Estado"/>
+                                                            <TableColumn fx:id="idRutaMarinero" prefWidth="75.0"
+                                                                         text="Ruta"/>
+                                                        </columns>
+                                                    </TableView>
+                                                </children>
+                                            </AnchorPane>
+                                        </content>
+                                    </Tab>
+                                    <Tab text="Esposas">
+                                        <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                        prefWidth="200.0">
+                                                <children>
+                                                    <TableView fx:id="esposas" prefHeight="469.0" prefWidth="799.0"
+                                                               AnchorPane.bottomAnchor="0.0"
+                                                               AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0"
+                                                               AnchorPane.topAnchor="14.0">
+                                                        <columns>
+                                                            <TableColumn fx:id="identificacionEsposa" prefWidth="75.0"
+                                                                         text="Identificacion"/>
+                                                            <TableColumn fx:id="nombreEsposa" prefWidth="75.0"
+                                                                         text="Nombre"/>
+                                                            <TableColumn fx:id="sexoEsposa" prefWidth="75.0"
+                                                                         text="Sexo"/>
+                                                            <TableColumn fx:id="estadoVivoEsposa" prefWidth="75.0"
+                                                                         text="Estado"/>
+                                                            <TableColumn fx:id="esposoEsposa" prefWidth="75.0"
+                                                                         text="Esposo"/>
+                                                            <TableColumn fx:id="porcHerenciaEsposa" prefWidth="75.0"
+                                                                         text="Porc Herencia"/>
+                                                        </columns>
+                                                    </TableView>
+                                                </children>
+                                            </AnchorPane>
+                                        </content>
+                                    </Tab>
+                                    <Tab text="Hijos">
+                                        <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                        prefWidth="200.0">
+                                                <children>
+                                                    <TableView fx:id="hijos" prefHeight="469.0" prefWidth="799.0"
+                                                               AnchorPane.bottomAnchor="0.0"
+                                                               AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0"
+                                                               AnchorPane.topAnchor="14.0">
+                                                        <columns>
+                                                            <TableColumn fx:id="identificacionHijo" prefWidth="75.0"
+                                                                         text="Identificacion"/>
+                                                            <TableColumn fx:id="nombreHijo" prefWidth="75.0"
+                                                                         text="Nombre"/>
+                                                            <TableColumn fx:id="sexoHijo" prefWidth="75.0" text="Sexo"/>
+                                                            <TableColumn fx:id="estadoVivoHijo" prefWidth="75.0"
+                                                                         text="Estado"/>
+                                                            <TableColumn fx:id="idPadreHijo" prefWidth="75.0"
+                                                                         text="Padre"/>
+                                                            <TableColumn fx:id="porcHerenciaHijo" prefWidth="75.0"
+                                                                         text="Porc Herencia"/>
+
+                                                        </columns>
+                                                    </TableView>
+                                                </children>
+                                            </AnchorPane>
+                                        </content>
+                                    </Tab>
+                                </tabs>
+                            </JFXTabPane>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+            <Tab text="Viajes">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <JFXTabPane layoutX="14.0" layoutY="14.0" prefHeight="509.0" prefWidth="807.0"
+                                        tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0"
+                                        AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0"
+                                        AnchorPane.topAnchor="14.0">
+                                <tabs>
+                                    <Tab text="Rutas">
+                                        <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                        prefWidth="200.0">
+                                                <children>
+                                                    <TableView fx:id="rutas" layoutX="14.0" layoutY="14.0"
+                                                               prefHeight="469.0" prefWidth="799.0"
+                                                               AnchorPane.bottomAnchor="0.0"
+                                                               AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0"
+                                                               AnchorPane.topAnchor="14.0">
+                                                        <columns>
+                                                            <TableColumn fx:id="numeroRuta" prefWidth="75.0"
+                                                                         text="Numero"/>
+                                                            <TableColumn fx:id="matriculaBarcoRuta" prefWidth="75.0"
+                                                                         text="Matricula Barco"/>
+                                                            <TableColumn fx:id="idPuertoOrigenRuta" prefWidth="75.0"
+                                                                         text="Puerto Origen"/>
+                                                            <TableColumn fx:id="fechaPuertoOrigenRuta" prefWidth="75.0"
+                                                                         text="Fecha Origen"/>
+                                                            <TableColumn fx:id="idPuertoDestinoRuta" prefWidth="75.0"
+                                                                         text="Puerto Destino"/>
+                                                            <TableColumn fx:id="fechaPuertoDestinoRuta" prefWidth="75.0"
+                                                                         text="Fecha Destino"/>
+                                                            <TableColumn fx:id="idPuertoAtualRuta" prefWidth="75.0"
+                                                                         text="Puerto Actual"/>
+                                                            <TableColumn fx:id="idCapitanRuta" prefWidth="75.0"
+                                                                         text="Capitan"/>
+                                                        </columns>
+                                                    </TableView>
+                                                </children>
+                                            </AnchorPane>
+                                        </content>
+                                    </Tab>
+                                    <Tab text="Escalas">
+                                        <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                        prefWidth="200.0">
+                                                <children>
+                                                    <TableView fx:id="escalas" prefHeight="469.0" prefWidth="799.0"
+                                                               AnchorPane.bottomAnchor="0.0"
+                                                               AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0"
+                                                               AnchorPane.topAnchor="14.0">
+                                                        <columns>
+                                                            <TableColumn fx:id="idRutaEscala" prefWidth="75.0"
+                                                                         text="Id Ruta"/>
+                                                            <TableColumn fx:id="idPuertoEscala" prefWidth="75.0"
+                                                                         text="Puerto"/>
+                                                            <TableColumn fx:id="fechaEscalaEscala" prefWidth="75.0"
+                                                                         text="Fecha"/>
+                                                        </columns>
+                                                    </TableView>
+                                                </children>
+                                            </AnchorPane>
+                                        </content>
+                                    </Tab>
+                                </tabs>
+                            </JFXTabPane>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+        </tabs>
+    </JFXTabPane>
 </AnchorPane>

@@ -2,8 +2,6 @@ package com.elbotecito.dao.impl;
 
 import com.elbotecito.dao.PuertoDAO;
 import com.elbotecito.dao.exception.LlaveDuplicadaException;
-import com.elbotecito.modelo.Barco;
-import com.elbotecito.modelo.Puerto;
 import com.elbotecito.modelo.Puerto;
 import com.elbotecito.util.util;
 
@@ -29,8 +27,8 @@ public class PuertoDAONIO implements PuertoDAO {
     private final static String NOMBRE_ARCHIVO = "Puertos"; //Kebab case
     private final static int LONGITUD_REGISTRO = 80;
     private final static int LONGITUD_IDENTIFICACION = 20;
-    private final static int LONGITUD_NOMBRE= 40;
-    private final static int LONGITUD_CIUDAD= 20;
+    private final static int LONGITUD_NOMBRE = 40;
+    private final static int LONGITUD_CIUDAD = 20;
 
     private final static String ENCODING_FILE = System.getProperty("file.encoding");
     private final static Path archivo = Paths.get(NOMBRE_ARCHIVO);

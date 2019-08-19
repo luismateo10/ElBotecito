@@ -1,168 +1,181 @@
 package com.elbotecito.bsn;
 
 import com.elbotecito.bsn.exception.BarcoYaExisteException;
-import com.elbotecito.dao.BarcoDAO;
+import com.elbotecito.bsn.exception.PersonaYaExisteException;
+import com.elbotecito.dao.*;
 import com.elbotecito.dao.exception.LlaveDuplicadaException;
-import com.elbotecito.dao.impl.BarcoDAONIO;
-import com.elbotecito.modelo.Barco;
+import com.elbotecito.dao.impl.*;
+import com.elbotecito.modelo.*;
 
 import java.util.List;
 
 public class PersonaBsn {
 
 
-    private BarcoDAO barcoDAO;
+    private CapitanDAO capitanDAO;
+    private MarineroDAO marineroDAO;
+    private EsposaDAO esposaDAO;
+    private HijoDAO hijoDAO;
 
     public PersonaBsn() {
-        this.barcoDAO = new BarcoDAONIO();
+        this.capitanDAO = new CapitanDAONIO();
+        this.marineroDAO = new MarineroDAONIO();
+        this.esposaDAO = new EsposaDAONIO();
+        this.hijoDAO = new HijoDAONIO();
     }
 
-    public void guardarBarco(Barco barco) throws BarcoYaExisteException {
+    public void guardarCapitan(Capitan capitan) throws PersonaYaExisteException {
         try {
-            this.barcoDAO.guardarBarco(barco);
+            this.capitanDAO.guardarCapitan(capitan);
         } catch (LlaveDuplicadaException lde) {
-            throw new BarcoYaExisteException();
+            throw new PersonaYaExisteException();
         }
     }
 
-    public Barco consultarBarco(String matricula) {
-        return this.barcoDAO.consultarBarcoPorMatricula(matricula);
-    }
-
-
-    public List<Barco> consultarBarcos() {
-        List<Barco> listaBarcos = this.barcoDAO.consultarBarcos();
-        return listaBarcos;
-
-    }
-
-    public void actualizarBarco(Barco barco) {
-        this.barcoDAO.actualizarBarco(barco);
-    }
-
-    public void eliminarBArco(String matricula) {
-        this.barcoDAO.eliminarBarco(matricula);
-
-    }
-
-
-    public static void main(String[] args) {
-        PersonaBsn barcoBsn = new PersonaBsn();
-        Barco barco1 = new Barco("123", "230", "12334", "26/05/2020", "a", "zarpado", "fragataA");
-        Barco barco2 = new Barco("1234", "230", "12334", "26/05/2020", "b", "zarpado", "fragataB");
-        Barco barco3 = new Barco("12345", "230", "12334", "26/05/2020", "c", "zarpado", "fragataC");
-        Barco barco4 = new Barco("123456", "230", "12334", "26/05/2020", "d", "zarpado", "fragataD");
+    public void guardarMarinero(Marinero marinero) throws PersonaYaExisteException {
         try {
-            barcoBsn.guardarBarco(barco1);
-        } catch (BarcoYaExisteException eyee) {
-            System.out.println(eyee.getMessage());
-            eyee.printStackTrace();
+            this.marineroDAO.guardarMarinero(marinero);
+        } catch (LlaveDuplicadaException lde) {
+            throw new PersonaYaExisteException();
         }
+    }
+
+    public void guardarEsposa(Esposa esposa) throws PersonaYaExisteException {
         try {
-            barcoBsn.guardarBarco(barco2);
-        } catch (BarcoYaExisteException eyee) {
-            System.out.println(eyee.getMessage());
-            eyee.printStackTrace();
+            this.esposaDAO.guardarEsposa(esposa);
+        } catch (LlaveDuplicadaException lde) {
+            throw new PersonaYaExisteException();
         }
+    }
+
+    public void guardarHijo(Hijo hijo) throws PersonaYaExisteException {
         try {
-            barcoBsn.guardarBarco(barco3);
-        } catch (BarcoYaExisteException eyee) {
-            System.out.println(eyee.getMessage());
-            eyee.printStackTrace();
-        }
-        try {
-            barcoBsn.guardarBarco(barco4);
-        } catch (BarcoYaExisteException eyee) {
-            System.out.println(eyee.getMessage());
-            eyee.printStackTrace();
-        }
-        //-------------1
-        System.out.println("Primera consulta");
-        System.out.println(barcoBsn.consultarBarco("999"));
-
-        System.out.println("\n Consultar barcos Primera vez \n");
-        for (Barco barco : barcoBsn.consultarBarcos()) {
-            System.out.println(barco);
-        }
-        //-----------Elimino un barco para probar
-        barcoBsn.eliminarBArco("123");
-
-        //-----------Imprimo
-        System.out.println("\n Consultar Barcos Segunda vez\n");
-        barcoBsn.consultarBarcos();
-        for (Barco barco : barcoBsn.consultarBarcos()) {
-            System.out.println(barco);
-        }
-        //-----------Actualizo un Barco
-        barco4.setCapacidadMax("999");
-        barco4.setFechaRegMerc("15/20/3000");
-        barcoBsn.actualizarBarco(barco4);
-        //Imprimo----------------------
-        System.out.println("\n Consultar Barcos Segunda vez\n");
-        barcoBsn.consultarBarcos();
-        for (Barco barco : barcoBsn.consultarBarcos()) {
-            System.out.println(barco);
-        }
-
-    }
-
-    /*
-    private BarcoDAO empleadoDAO;
-    private HerramientaDAO herramientaDAO;
-
-    public EmpleadoBsn(){
-        this.empleadoDAO = new EmpleadoDAONIO();
-        this.herramientaDAO = new HerramientaDAONIO();
-    }
-
-    public void guardarEmpleado(Empleado empleado) throws EmpleadoYaExisteException {
-        //todo validar reglas de negocio
-        //todo aplicar lógica de casos de uso
-        System.out.println("En el bsn");
-        try {
-            this.empleadoDAO.guardarEmpleado(empleado);
-        }catch (LlaveDuplicadaException lde){
-            throw new EmpleadoYaExisteException();
-        }
-    }
-
-    public Empleado consultarEmpleado(String identificacion){
-        return this.empleadoDAO.consultarEmpleadoPorIdentificacion(identificacion);
-    }
-
-    public List<Herramienta> consultarHerramientasEmpleado(String identificacion){
-        return this.herramientaDAO.consultarHerramientasPorIdEmpleado(identificacion);
-    }
-
-    public void almacenarHerramienta(Herramienta herramienta) throws HerramientaYaExisteException {
-        try {
-            this.herramientaDAO.guardarHerramienta(herramienta);
-        }catch (LlaveDuplicadaException lde){
-            throw new HerramientaYaExisteException();
+            this.hijoDAO.guardarHijo(hijo);
+        } catch (LlaveDuplicadaException lde) {
+            throw new PersonaYaExisteException();
         }
     }
 
 
-    public static void main(String[] args) {
-        /*Herramienta herramienta = new Herramienta("001", "Martillo", "123");
-        Herramienta herramienta2 = new Herramienta("002", "Taladro", "123");
-
-
-
-        try {
-            empleadoBsn.almacenarHerramienta(herramienta);
-            empleadoBsn.almacenarHerramienta(herramienta2);
-        }catch (HerramientaYaExisteException hyee){
-            hyee.printStackTrace();
-        }*/
-
-/*
-        EmpleadoBsn empleadoBsn = new EmpleadoBsn();
-        List<Herramienta> herramientas = empleadoBsn.consultarHerramientasEmpleado("12");
-        for(Herramienta herramienta: herramientas){
-            System.out.println(herramienta);
-        }
+    public Capitan consultarCapitan(String identificacion) {
+        return this.capitanDAO.consultarCapitanPorIdentificacion(identificacion);
     }
-    */
+
+    public Marinero consultarMarinero(String identificacion) {
+        return this.marineroDAO.consultarMarineroPorIdentificacion(identificacion);
+    }
+
+    public Esposa consultarEsposa(String identificacion) {
+        return this.esposaDAO.consultarEsposaPorIdentificacion(identificacion);
+    }
+
+    public Hijo consultarHijo(String identificacion) {
+        return this.hijoDAO.consultarHijoPorIdentificacion(identificacion);
+    }
+
+    public List<Capitan> consultarCapitanes() {
+        List<Capitan> listaCapitanes = this.capitanDAO.consultarCapitanes();
+        for (Capitan persona:listaCapitanes) {
+            if (persona.getSexo().equals("1")){
+                persona.setSexo("HOMBRE");
+            }else{
+                persona.setSexo("MUJER");
+            }
+            if (persona.getEstadoVivo().equals("1")){
+                persona.setEstadoVivo("VIVO");
+            }else{
+                persona.setEstadoVivo("MUERTO");
+            }
+
+        }
+        return listaCapitanes;
+    }
+
+    public List<Marinero> consultarMarineros() {
+        List<Marinero> listaMarineros = this.marineroDAO.consultarMarineros();
+        for (Marinero persona:listaMarineros) {
+            if (persona.getSexo().equals("1")){
+                persona.setSexo("HOMBRE");
+            }else{
+                persona.setSexo("MUJER");
+            }
+            if (persona.getEstadoVivo().equals("1")){
+                persona.setEstadoVivo("VIVO");
+            }else{
+                persona.setEstadoVivo("MUERTO");
+            }
+
+        }
+        return listaMarineros;
+    }
+
+    public List<Esposa> consultarEsposas() {
+        List<Esposa> listaEsposas = this.esposaDAO.consultarEsposas();
+        for (Esposa persona:listaEsposas) {
+            if (persona.getSexo().equals("1")){
+                persona.setSexo("HOMBRE");
+            }else{
+                persona.setSexo("MUJER");
+            }
+            if (persona.getEstadoVivo().equals("1")){
+                persona.setEstadoVivo("VIVO");
+            }else{
+                persona.setEstadoVivo("MUERTO");
+            }
+
+        }
+        return listaEsposas;
+    }
+
+    public List<Hijo> consultarHijos() {
+        List<Hijo> listaHijos = this.hijoDAO.consultarHijos();
+        for (Hijo persona:listaHijos) {
+            if (persona.getSexo().equals("1")){
+                persona.setSexo("HOMBRE");
+            }else{
+                persona.setSexo("MUJER");
+            }
+            if (persona.getEstadoVivo().equals("1")){
+                persona.setEstadoVivo("VIVO");
+            }else{
+                persona.setEstadoVivo("MUERTO");
+            }
+
+        }
+        return listaHijos;
+    }
+
+    public boolean actualizarCapitan(Capitan capitan) {
+        return this.capitanDAO.actualizarCapitan(capitan);
+
+    }
+
+    public boolean actualizarMarinero(Marinero marinero) {
+        return this.marineroDAO.actualizarMarinero(marinero);
+    }
+
+    public boolean actualizarEsposa(Esposa esposa) {
+        return this.esposaDAO.actualizarEsposa(esposa);
+    }
+
+    public boolean actualizarHijo(Hijo hijo) {
+        return this.hijoDAO.actualizarHijo(hijo);
+    }
+
+    public boolean eliminarCapitan(String identificacion) {
+        return this.capitanDAO.eliminarCapitan(identificacion);
+    }
+
+    public boolean eliminarMarinero(String identificacion) {
+        return this.marineroDAO.eliminarMarinero(identificacion);
+    }
+
+    public boolean eliminarEsposa(String identificacion) {
+        return this.esposaDAO.eliminarEsposa(identificacion);
+    }
+
+    public boolean eliminarHijo(String identificacion) {
+        return this.hijoDAO.eliminarHijo(identificacion);
+    }
 
 }

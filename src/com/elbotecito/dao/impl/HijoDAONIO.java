@@ -27,15 +27,13 @@ import static java.nio.file.StandardOpenOption.APPEND;
 
 public class HijoDAONIO implements HijoDAO {
     private final static String NOMBRE_ARCHIVO = "Hijos"; //Kebab case
-    private final static int LONGITUD_REGISTRO = 150;
+    private final static int LONGITUD_REGISTRO = 102;
     private final static int LONGITUD_IDENTIFICACION = 20;
-    private final static int LONGITUD_NOMBRE = 10;
-    private final static int LONGITUD_SEXO = 20;
-    private final static int LONGITUD_ESTADOVIVO = 20;
-    private final static int LONGITUD_IDRUTA = 40;
-    private final static int LONGITUD_NUMHIJOS = 20;
-    private final static int LONGITUD_NUMESPOSAS = 20;
-    private final static int LONGITUD_FORTUNA = 20;
+    private final static int LONGITUD_NOMBRE = 40;
+    private final static int LONGITUD_SEXO = 1;
+    private final static int LONGITUD_ESTADOVIVO = 1;
+    private final static int LONGITUD_IDPADRE = 20;
+    private final static int LONGITUD_PORCHERENCIA = 20;
 
 
     private final static String ENCODING_FILE = System.getProperty("file.encoding");
@@ -170,6 +168,11 @@ public class HijoDAONIO implements HijoDAO {
     private String parseHijo2String(Hijo hijo) {
         StringBuilder registro = new StringBuilder();
         registro.append(util.completarCampo(hijo.getIdentificacion(), LONGITUD_IDENTIFICACION));
+        registro.append(util.completarCampo(hijo.getNombre(), LONGITUD_NOMBRE));
+        registro.append(util.completarCampo(hijo.getSexo(), LONGITUD_SEXO));
+        registro.append(util.completarCampo(hijo.getEstadoVivo(), LONGITUD_ESTADOVIVO));
+        registro.append(util.completarCampo(hijo.getIdPadre(), LONGITUD_IDPADRE));
+        registro.append(util.completarCampo(hijo.getPorcHerencia(), LONGITUD_PORCHERENCIA));
 
         return registro.toString();
     }
@@ -181,8 +184,28 @@ public class HijoDAONIO implements HijoDAO {
         registro.position(LONGITUD_IDENTIFICACION);
         registro = registro.slice();
 
-        String fortuna = registro.subSequence(0, LONGITUD_FORTUNA).toString().trim();
-        hijo.setPorcHerencia(fortuna);
+        String nombre = registro.subSequence(0, LONGITUD_NOMBRE).toString().trim();
+        hijo.setNombre(nombre);
+        registro.position(LONGITUD_NOMBRE);
+        registro = registro.slice();
+
+        String sexo = registro.subSequence(0, LONGITUD_SEXO).toString().trim();
+        hijo.setSexo(sexo);
+        registro.position(LONGITUD_SEXO);
+        registro = registro.slice();
+
+        String estadoVivo = registro.subSequence(0, LONGITUD_ESTADOVIVO).toString().trim();
+        hijo.setEstadoVivo(estadoVivo);
+        registro.position(LONGITUD_ESTADOVIVO);
+        registro = registro.slice();
+
+        String idPadre = registro.subSequence(0, LONGITUD_IDPADRE).toString().trim();
+        hijo.setIdPadre(idPadre);
+        registro.position(LONGITUD_IDPADRE);
+        registro = registro.slice();
+
+        String porcHerencia = registro.subSequence(0, LONGITUD_PORCHERENCIA).toString().trim();
+        hijo.setPorcHerencia(porcHerencia);
 
         return hijo;
     }
