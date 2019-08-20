@@ -2,8 +2,11 @@ package com.elbotecito.modelo;
 
 public class Puerto {
     private String identificacion;
+
     private String nombre;
+
     private String ciudad;
+
 
     public Puerto() {
     }

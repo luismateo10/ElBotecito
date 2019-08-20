@@ -9,7 +9,7 @@ public interface RutaDAO {
     //CRUD de Ruta - Crear, Leer, Actualizar y Eliminar.
 
     //Create
-    public boolean guardarRuta(Ruta ruta) throws LlaveDuplicadaException;
+    public void guardarRuta(Ruta ruta) throws LlaveDuplicadaException;
 
     //Read
     public Ruta consultarRutaPorIdentificacion(String idRuta);

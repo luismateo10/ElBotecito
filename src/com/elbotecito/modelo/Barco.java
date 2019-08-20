@@ -3,24 +3,30 @@ package com.elbotecito.modelo;
 public class Barco {
     //POJO de Barco
     private String matricula;  //PK
+
     private String capacidadMax;
+
     private String numeroRegMerc;
+
     private String fechaRegMerc;
+
     private String nombre;
+
     private String estado;
-    private String tipoId;
+
+    private String tipoBarco;
 
     public Barco() {
     }
 
-    public Barco(String matricula, String capacidadMax, String numeroRegMerc, String fechaRegMerc, String nombre, String estado, String tipoId) {
+    public Barco(String matricula, String capacidadMax, String numeroRegMerc, String fechaRegMerc, String nombre, String estado, String tipoBarco) {
         this.matricula = matricula;
         this.capacidadMax = capacidadMax;
         this.numeroRegMerc = numeroRegMerc;
         this.fechaRegMerc = fechaRegMerc;
         this.nombre = nombre;
         this.estado = estado;
-        this.tipoId = tipoId;
+        this.tipoBarco = tipoBarco;
     }
 
     public String getMatricula() {
@@ -71,12 +77,11 @@ public class Barco {
         this.estado = estado;
     }
 
-    public String getTipoId() {
-        return tipoId;
+    public String getTipoBarco() {
+        return tipoBarco;
     }
-
-    public void setTipoId(String tipoId) {
-        this.tipoId = tipoId;
+    public void setTipoBarco(String tipoBarco) {
+        this.tipoBarco = tipoBarco;
     }
 
     @Override
@@ -88,7 +93,7 @@ public class Barco {
                 ", fechaRegMerc='" + fechaRegMerc + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", estado='" + estado + '\'' +
-                ", tipoId='" + tipoId + '\'' +
+                ", tipoBarco='" + tipoBarco + '\'' +
                 '}';
     }
 }

@@ -1,11 +1,14 @@
 package com.elbotecito.bsn;
 
 import com.elbotecito.bsn.exception.BarcoYaExisteException;
-import com.elbotecito.dao.BarcoDAO;
+import com.elbotecito.dao.*;
 import com.elbotecito.dao.exception.LlaveDuplicadaException;
 import com.elbotecito.dao.impl.BarcoDAONIO;
+import com.elbotecito.dao.impl.HijoDAONIO;
 import com.elbotecito.modelo.Barco;
+import com.elbotecito.modelo.Hijo;
 import javafx.scene.control.Alert;
+import jdk.nashorn.internal.objects.NativeArray;
 
 import java.util.List;
 
@@ -14,88 +17,36 @@ public class BarcoBsn {
 
     private BarcoDAO barcoDAO;
 
-    public BarcoBsn(){
-        this.barcoDAO = new BarcoDAONIO(); {
-        }
+    public BarcoBsn() {
+        this.barcoDAO = new BarcoDAONIO();
     }
-    public void guardarBarco(Barco barco) throws BarcoYaExisteException{
+
+    public void guardarBarco(Barco barco) throws BarcoYaExisteException {
         try {
             this.barcoDAO.guardarBarco(barco);
-        }catch (LlaveDuplicadaException lde){
+        } catch (LlaveDuplicadaException lde) {
             throw new BarcoYaExisteException();
         }
     }
 
-    public static void main(String[] args) {
-        BarcoBsn barcoBsn = new BarcoBsn();
-        Barco barco1 = new Barco("999","230","12334","26/05/2020","La eliza", "zarpado","fragata");
-
-        try {
-            barcoBsn.guardarBarco(barco1);
-        }catch (BarcoYaExisteException eyee){
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            System.out.println(eyee.getMessage());
-            eyee.printStackTrace();
-        }
-    }
-
-    /*
-    private BarcoDAO empleadoDAO;
-    private HerramientaDAO herramientaDAO;
-
-    public EmpleadoBsn(){
-        this.empleadoDAO = new EmpleadoDAONIO();
-        this.herramientaDAO = new HerramientaDAONIO();
-    }
-
-    public void guardarEmpleado(Empleado empleado) throws EmpleadoYaExisteException {
-        //todo validar reglas de negocio
-        //todo aplicar lógica de casos de uso
-        System.out.println("En el bsn");
-        try {
-            this.empleadoDAO.guardarEmpleado(empleado);
-        }catch (LlaveDuplicadaException lde){
-            throw new EmpleadoYaExisteException();
-        }
-    }
-
-    public Empleado consultarEmpleado(String identificacion){
-        return this.empleadoDAO.consultarEmpleadoPorIdentificacion(identificacion);
-    }
-
-    public List<Herramienta> consultarHerramientasEmpleado(String identificacion){
-        return this.herramientaDAO.consultarHerramientasPorIdEmpleado(identificacion);
-    }
-
-    public void almacenarHerramienta(Herramienta herramienta) throws HerramientaYaExisteException {
-        try {
-            this.herramientaDAO.guardarHerramienta(herramienta);
-        }catch (LlaveDuplicadaException lde){
-            throw new HerramientaYaExisteException();
-        }
+    public Barco consultarBarco(String matricula) {
+        return this.barcoDAO.consultarBarcoPorMatricula(matricula);
     }
 
 
-    public static void main(String[] args) {
-        /*Herramienta herramienta = new Herramienta("001", "Martillo", "123");
-        Herramienta herramienta2 = new Herramienta("002", "Taladro", "123");
+    public List<Barco> consultarBarcos() {
+        List<Barco> listaBarcos = this.barcoDAO.consultarBarcos();
+        return listaBarcos;
 
-
-
-        try {
-            empleadoBsn.almacenarHerramienta(herramienta);
-            empleadoBsn.almacenarHerramienta(herramienta2);
-        }catch (HerramientaYaExisteException hyee){
-            hyee.printStackTrace();
-        }*/
-
-/*
-        EmpleadoBsn empleadoBsn = new EmpleadoBsn();
-        List<Herramienta> herramientas = empleadoBsn.consultarHerramientasEmpleado("12");
-        for(Herramienta herramienta: herramientas){
-            System.out.println(herramienta);
-        }
     }
-    */
+
+    public boolean actualizarBarco(Barco barco) {
+        return this.barcoDAO.actualizarBarco(barco);
+    }
+
+    public boolean eliminarBarco(String matricula) {
+        return this.barcoDAO.eliminarBarco(matricula);
+
+    }
 
 }

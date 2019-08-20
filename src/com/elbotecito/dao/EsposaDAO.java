@@ -9,7 +9,7 @@ public interface EsposaDAO {
     //CRUD de Esposa - Crear, Leer, Actualizar y Eliminar.
 
     //Create
-    public boolean guardarEsposa(Esposa esposa) throws LlaveDuplicadaException;
+    public void guardarEsposa(Esposa esposa) throws LlaveDuplicadaException;
 
     //Read
     public Esposa consultarEsposaPorIdentificacion(String idEsposa);

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="720" prefWidth="1080" style="-fx-background-color: white;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elbotecito.controlador.ControladorTripulacion">
+   <children>
+      <Pane id="cabecera" prefHeight="113.0" prefWidth="1080.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text id="h1" fill="WHITE" layoutX="36.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PERSONAS" />
+         </children>
+      </Pane>
+      <Text id="h2" fill="#021b79" layoutX="36.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Información de la persona" />
+      <Polygon id="bandera" layoutX="968.0" layoutY="184.0" nodeOrientation="LEFT_TO_RIGHT" points="-106.0, 49.0, -17.0, 21.0, 65.0, 49.0, 65.0, -134.0, -106.0, -134.0" strokeType="INSIDE" strokeWidth="0.0" AnchorPane.rightAnchor="47.0" AnchorPane.topAnchor="50.0" />
+      <JFXButton fx:id="guardarBTN" layoutX="862.0" layoutY="257.0" mnemonicParsing="false" onAction="#guardarPersona" prefHeight="35.0" prefWidth="171.0" text="Guardar" AnchorPane.rightAnchor="47.0" AnchorPane.topAnchor="257.0" />
+      <JFXButton fx:id="modificarBTN" layoutX="862.0" layoutY="314.0" mnemonicParsing="false" onAction="#modificarPersona" prefHeight="35.0" prefWidth="171.0" text="Modificar" AnchorPane.rightAnchor="47.0" AnchorPane.topAnchor="314.0" />
+      <JFXButton fx:id="eliminarBTN" layoutX="862.0" layoutY="368.0" mnemonicParsing="false" onAction="#eliminarPersona" prefHeight="35.0" prefWidth="171.0" text="Eliminar" AnchorPane.rightAnchor="47.0" AnchorPane.topAnchor="368.0" />
+      <GridPane layoutX="37.0" layoutY="177.0" prefHeight="172.0" prefWidth="560.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="172.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="515.0" minWidth="10.0" prefWidth="388.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label id="lhf" text="Identificación" />
+            <JFXTextField id="tfhf" fx:id="IdentificacionTF" onKeyPressed="#onEnter" prefHeight="25.0" prefWidth="308.0" GridPane.columnIndex="1" />
+            <Label id="lhf" text="Nombres" GridPane.rowIndex="1" />
+            <JFXTextField id="tfhf" fx:id="nombreTF" prefHeight="25.0" prefWidth="308.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label id="lhf" text="Genero" GridPane.rowIndex="2" />
+            <Label id="lhf" text="Estado" GridPane.rowIndex="3" />
+            <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+              <buttons>
+                  <JFXRadioButton fx:id="esMuerto" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Muerto" textAlignment="CENTER" />
+                  <JFXRadioButton fx:id="esVivo" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Vivo" textAlignment="CENTER" />
+              </buttons>
+            </ButtonBar>
+            <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <buttons>
+                  <JFXRadioButton fx:id="generoMujer" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Mujer" textAlignment="CENTER" />
+                  <JFXRadioButton fx:id="generoHombre" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Hombre" textAlignment="CENTER" />
+               </buttons>
+            </ButtonBar>
+         </children>
+      </GridPane>
+      <Label id="lhf" layoutX="37.0" layoutY="364.0" text="Rol" />
+      <JFXComboBox fx:id="rolCB" layoutX="207.0" layoutY="363.0" prefHeight="25.0" prefWidth="154.0" />
+      <Pane fx:id="paneCapitan" layoutX="36.0" layoutY="401.0" prefHeight="120.0" prefWidth="602.0" visible="false">
+         <children>
+            <Label id="lhf" layoutY="4.0" text="Número de esposas" />
+            <Label id="lhf" layoutX="322.0" layoutY="6.0" text="Número de hijos" />
+            <JFXTextField id="tfhf" fx:id="capitanNumEsposasTF" layoutX="171.0" layoutY="4.0" prefHeight="25.0" prefWidth="95.0" />
+            <JFXTextField id="tfhf" fx:id="capitanNumHijos" layoutX="464.0" layoutY="2.0" prefHeight="25.0" prefWidth="95.0" />
+            <JFXTextField id="tfhf" fx:id="capitanFortunaTF" layoutX="171.0" layoutY="48.0" prefHeight="25.0" prefWidth="388.0" />
+            <Label id="lhf" layoutY="52.0" text="Fortuna" />
+         </children>
+      </Pane>
+      <Pane fx:id="paneEsposa" layoutX="36.0" layoutY="401.0" prefHeight="120.0" prefWidth="602.0" visible="false">
+         <children>
+            <Label id="lhf" layoutY="4.0" text="Identificación esposo" />
+            <JFXTextField id="tfhf" fx:id="esposaEsposoTF" layoutX="171.0" layoutY="3.0" prefHeight="25.0" prefWidth="388.0" />
+            <JFXTextField id="tfhf" fx:id="esposaHerenciaTF" layoutX="171.0" layoutY="47.0" prefHeight="25.0" prefWidth="388.0" />
+            <Label id="lhf" layoutX="1.0" layoutY="48.0" text="Porcentaje herencia" />
+         </children>
+      </Pane>
+      <Pane fx:id="paneHijo" layoutX="36.0" layoutY="401.0" prefHeight="120.0" prefWidth="602.0" visible="false">
+         <children>
+            <Label id="lhf" layoutY="4.0" text="Id padre" />
+            <JFXTextField id="tfhf" fx:id="hijoPadreTF" layoutX="171.0" layoutY="2.0" prefHeight="25.0" prefWidth="154.0" />
+            <JFXTextField id="tfhf" fx:id="hijoHerenciaTF" layoutX="171.0" layoutY="47.0" prefHeight="25.0" prefWidth="154.0" />
+            <Label id="lhf" layoutX="-2.0" layoutY="48.0" text="\% herencia" />
+         </children>
+      </Pane>
+      <HBox fx:id="hBoxImagen" layoutX="889.0" layoutY="69.0" prefHeight="120.0" prefWidth="119.0" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="69.0">
+         <children>
+            <ImageView fx:id="imagenBandera" fitHeight="120.0" fitWidth="120.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@imagenes/Timon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

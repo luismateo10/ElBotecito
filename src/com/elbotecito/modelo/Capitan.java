@@ -2,9 +2,13 @@ package com.elbotecito.modelo;
 
 public class Capitan extends Persona {
     private String idRuta;
+
     private String numHijos;
+
     private String numEsposas;
+
     private String fortuna;
+
 
     public Capitan() {
     }

@@ -9,7 +9,7 @@ public interface CapitanDAO {
     //CRUD de Capitan - Crear, Leer, Actualizar y Eliminar.
 
     //Create
-    public boolean guardarCapitan(Capitan capitan) throws LlaveDuplicadaException;
+    public void guardarCapitan(Capitan capitan) throws LlaveDuplicadaException;
 
     //Read
     public Capitan consultarCapitanPorIdentificacion(String idCapitan);

@@ -4,8 +4,11 @@ public class Persona {
 
 
     private String identificacion;
+
     private String nombre;
+
     private String sexo;
+
     private String estadoVivo;
 
     public Persona() {
